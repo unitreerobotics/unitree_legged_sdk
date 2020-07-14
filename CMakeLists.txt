@@ -37,3 +37,7 @@ target_link_libraries(udp_send_test ${EXTRA_LIBS})
 
 add_executable(udp_recv_test examples/multi_pc_udp_recv.cpp)
 target_link_libraries(udp_recv_test ${EXTRA_LIBS})
+
+# lcm server
+add_executable(lcm_server examples/lcm_server.cpp)
+target_link_libraries(lcm_server ${EXTRA_LIBS})
