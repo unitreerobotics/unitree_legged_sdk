@@ -19,7 +19,7 @@ enum class HighLevelType {
 	Sport
 };
 
-void SetLevel(uint8_t level);
+void InitEnvironment();
 
 // definition of each leg and joint
 constexpr int FR_ = 0;       // leg index

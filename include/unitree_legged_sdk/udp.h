@@ -21,10 +21,12 @@ constexpr char UDP_SERVER_IP_SPORT[] = "192.168.123.161";   // target IP address
 // Notice: User defined data(like struct) should add crc(4Byte) at the end.
 class UDP {
 public:
-    UDP(HighLevelType highControl = HighLevelType::Basic);  // unitree dafault IP and Port
+    UDP(uint8_t level, HighLevelType highControl = HighLevelType::Basic);  // unitree dafault IP and Port
     UDP(uint16_t localPort, const char* targetIP, uint16_t targetPort, int sendLength, int recvLength);
     UDP(uint16_t localPort, uint16_t targetPort, int sendLength, int recvLength); // as server, client IP can change
     ~UDP();
+    void InitCmdData(HighCmd& cmd);
+    void InitCmdData(LowCmd& cmd);
     void switchLevel(int level);
 
     int SetSend(HighCmd&);
@@ -44,6 +46,7 @@ public:
 private:
     void init(uint16_t localPort, const char* targetIP, uint16_t targetPort);
     
+    uint8_t levelFlag = HIGHLEVEL;   // default: high level
     int sockFd;
     bool connected; // udp only works when connected
     int sendLength;

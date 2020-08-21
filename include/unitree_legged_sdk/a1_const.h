@@ -8,12 +8,12 @@ Use of this source code is governed by the MPL-2.0 license, see LICENSE.
 
 namespace UNITREE_LEGGED_SDK 
 {
-    constexpr double a1_Hip_max   = 1.047;    // unit:radian ( = 60   degree)
-    constexpr double a1_Hip_min   = -0.873;   // unit:radian ( = -50  degree)
-    constexpr double a1_Thigh_max = 3.927;    // unit:radian ( = 225  degree)
-    constexpr double a1_Thigh_min = -0.524;   // unit:radian ( = -30  degree)
-    constexpr double a1_Calf_max  = -0.611;   // unit:radian ( = -35  degree)
-    constexpr double a1_Calf_min  = -2.775;   // unit:radian ( = -159 degree)
+    constexpr double a1_Hip_max   = 0.802;    // unit:radian ( = 46   degree)
+    constexpr double a1_Hip_min   = -0.802;   // unit:radian ( = -46  degree)
+    constexpr double a1_Thigh_max = 4.19;     // unit:radian ( = 240  degree)
+    constexpr double a1_Thigh_min = -1.05;    // unit:radian ( = -60  degree)
+    constexpr double a1_Calf_max  = -0.916;   // unit:radian ( = -52.5  degree)
+    constexpr double a1_Calf_min  = -2.7;     // unit:radian ( = -154.5 degree)
 }
 
 #endif

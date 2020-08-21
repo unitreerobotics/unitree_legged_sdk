@@ -7,13 +7,13 @@ Use of this source code is governed by the MPL-2.0 license, see LICENSE.
 #define _UNITREE_LEGGED_SDK_H_
 
 #include "comm.h"
-#include "control.h"
+#include "safety.h"
 #include "udp.h"
 #include "loop.h"
 #include "lcm.h"
 #include "quadruped.h"
 #include <boost/bind.hpp>
 
-#define UTK UNITREE_LEGGED_SDK    //short name
+#define UT UNITREE_LEGGED_SDK    //short name
 
 #endif

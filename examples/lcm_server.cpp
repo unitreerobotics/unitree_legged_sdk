@@ -17,6 +17,8 @@ int main(int argc, char *argv[])
         std::cout << "Robot name error! Can only be A1 or Aliengo(not case sensitive)" << std::endl;
         exit(-1);
     }
+
+    InitEnvironment();
     
     if(strcasecmp(argv[2], "LOWLEVEL") == 0)
     {
