@@ -1,0 +1,1 @@
+/usr/bin/c++  -O3  -rdynamic CMakeFiles/lcm_server.dir/examples/lcm_server.cpp.o  -o lcm_server  -L/home/unitree/Work/unitree_legged_sdk/lib -Wl,-rpath,/home/unitree/Work/unitree_legged_sdk/lib -pthread -lunitree_legged_sdk_amd64 -llcm 

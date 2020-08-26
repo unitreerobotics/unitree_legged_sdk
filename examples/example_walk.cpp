@@ -51,7 +51,7 @@ void Custom::RobotControl()
     cmd.rotateSpeed = 0.0f;
     cmd.bodyHeight = 0.0f;
 
-    cmd.mode = 0;
+    cmd.mode = 0;      // 0:idle, default stand      1:forced stand     2:walk continuously
     cmd.roll  = 0;
     cmd.pitch = 0;
     cmd.yaw = 0;
