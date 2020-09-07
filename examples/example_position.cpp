@@ -124,7 +124,8 @@ void Custom::RobotControl()
     if(motiontime > 10){
         safe.PositionLimit(cmd);
         safe.PowerProtect(cmd, state, 1);
-        safe.PositionProtect(cmd, state, 0.087);
+        // You can uncomment it for position protection
+        // safe.PositionProtect(cmd, state, 0.087);
     }
 
     udp.SetSend(cmd);
