@@ -41,3 +41,6 @@ target_link_libraries(udp_recv_test ${EXTRA_LIBS})
 # lcm server
 add_executable(lcm_server examples/lcm_server.cpp)
 target_link_libraries(lcm_server ${EXTRA_LIBS})
+
+add_executable(dance examples/dancing.cpp)
+target_link_libraries(dance ${EXTRA_LIBS})

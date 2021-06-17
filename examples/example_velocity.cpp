@@ -77,7 +77,7 @@ int main(void)
     std::cin.ignore();
 
     Custom custom(LOWLEVEL);
-    InitEnvironment();
+    // InitEnvironment();
     LoopFunc loop_control("control_loop", custom.dt,    boost::bind(&Custom::RobotControl, &custom));
     LoopFunc loop_udpSend("udp_send",     custom.dt, 3, boost::bind(&Custom::UDPSend,      &custom));
     LoopFunc loop_udpRecv("udp_recv",     custom.dt, 3, boost::bind(&Custom::UDPRecv,      &custom));

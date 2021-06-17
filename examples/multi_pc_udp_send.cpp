@@ -47,7 +47,7 @@ void Custom::Calc()
 int main(void) 
 {
     Custom custom;
-    InitEnvironment();
+    // InitEnvironment();
     LoopFunc loop_calc("calc_loop",   custom.dt,    boost::bind(&Custom::Calc,    &custom));
     LoopFunc loop_udpSend("udp_send", custom.dt, 3, boost::bind(&Custom::UDPSend, &custom));
     LoopFunc loop_udpRecv("udp_recv", custom.dt, 3, boost::bind(&Custom::UDPRecv, &custom));

@@ -18,7 +18,7 @@ int main(int argc, char *argv[])
         exit(-1);
     }
 
-    InitEnvironment();
+    // InitEnvironment();
     
     if(strcasecmp(argv[2], "LOWLEVEL") == 0)
     {

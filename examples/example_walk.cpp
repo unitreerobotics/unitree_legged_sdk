@@ -44,7 +44,7 @@ void Custom::RobotControl()
 {
     motiontime += 2;
     udp.GetRecv(state);
-    // printf("%d   %f\n", motiontime, state.forwardSpeed);
+    printf("%d   %f\n", motiontime, state.imu.quaternion[2]);
 
     cmd.forwardSpeed = 0.0f;
     cmd.sideSpeed = 0.0f;
@@ -125,7 +125,7 @@ int main(void)
     std::cin.ignore();
 
     Custom custom(HIGHLEVEL);
-    InitEnvironment();
+    // InitEnvironment();
     LoopFunc loop_control("control_loop", custom.dt,    boost::bind(&Custom::RobotControl, &custom));
     LoopFunc loop_udpSend("udp_send",     custom.dt, 3, boost::bind(&Custom::UDPSend,      &custom));
     LoopFunc loop_udpRecv("udp_recv",     custom.dt, 3, boost::bind(&Custom::UDPRecv,      &custom));

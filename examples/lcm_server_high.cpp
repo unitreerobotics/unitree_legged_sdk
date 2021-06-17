@@ -52,7 +52,7 @@ void Custom::RobotControl()
 int main(void) 
 {
     Custom custom(HIGHLEVEL);
-    InitEnvironment();
+    // InitEnvironment();
     custom.mylcm.SubscribeCmd();
 
     LoopFunc loop_control("control_loop", 0.002, 3, boost::bind(&Custom::RobotControl, &custom));
