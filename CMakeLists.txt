@@ -24,6 +24,9 @@ target_link_libraries(example_torque ${EXTRA_LIBS})
 add_executable(example_walk examples/example_walk.cpp)
 target_link_libraries(example_walk ${EXTRA_LIBS})
 
+add_executable(example_wirelessHandle examples/example_wirelessHandle.cpp)
+target_link_libraries(example_wirelessHandle ${EXTRA_LIBS})
+
 # one pc multi process
 add_executable(lcm_server_high examples/lcm_server_high.cpp)
 target_link_libraries(lcm_server_high ${EXTRA_LIBS})
