@@ -1,7 +1,6 @@
-/************************************************************************
-Copyright (c) 2020, Unitree Robotics.Co.Ltd. All rights reserved.
-Use of this source code is governed by the MPL-2.0 license, see LICENSE.
-************************************************************************/
+/*****************************************************************
+ Copyright (c) 2020, Unitree Robotics.Co.Ltd. All rights reserved.
+******************************************************************/
 
 #include "unitree_legged_sdk/unitree_legged_sdk.h"
 #include <math.h>
@@ -12,7 +11,7 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    Custom(uint8_t level): safe(LeggedType::Aliengo), udp(level){
+    Custom(uint8_t level): safe(LeggedType::Go1), udp(level){
         udp.InitCmdData(cmd);
     }
     void UDPRecv();
@@ -61,9 +60,10 @@ void Custom::RobotControl()
     }
 
     if(motiontime > 10){
-        safe.PowerProtect(cmd, state, 1);
+        int res1 = safe.PowerProtect(cmd, state, 1);
         // You can uncomment it for position protection
-        // safe.PositionProtect(cmd, state, 0.087);
+        // int res2 = safe.PositionProtect(cmd, state, 0.087);
+        if(res1 < 0) exit(-1);
     }
 
     udp.SetSend(cmd);
