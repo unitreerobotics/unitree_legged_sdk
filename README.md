@@ -1,6 +1,8 @@
-## Notice
+## v3.4
 support robot: Go1
+
 not support robot: Laikago, Aliengo, A1
+
 
 The unitree_legged_sdk is mainly used for communication between PC and Controller board.
 It also can be used in other PCs with UDP.
