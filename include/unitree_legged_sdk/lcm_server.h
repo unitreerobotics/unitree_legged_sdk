@@ -15,7 +15,7 @@ namespace UNITREE_LEGGED_SDK
 class Lcm_Server_Low
 {
 public:
-    Lcm_Server_Low(LeggedType rname) : udp(LOWLEVEL), mylcm(LOWLEVEL){
+    Lcm_Server_Low() : udp(LOWLEVEL), mylcm(LOWLEVEL){
         udp.InitCmdData(cmd);
     }
     void UDPRecv(){
@@ -59,7 +59,7 @@ void Lcm_Server_Low::RobotControl()
 class Lcm_Server_High
 {
 public:
-    Lcm_Server_High(LeggedType rname): udp(HIGHLEVEL), mylcm(HIGHLEVEL){
+    Lcm_Server_High(): udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState)), mylcm(HIGHLEVEL){
         udp.InitCmdData(cmd);
     }
     void UDPRecv(){

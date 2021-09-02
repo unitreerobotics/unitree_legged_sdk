@@ -10,7 +10,10 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    Custom(uint8_t level): udp(level), mylcm(level){}
+    Custom(uint8_t level): 
+    // udp(level), 
+    udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState)),
+    mylcm(level){}
     void UDPRecv(){
         udp.Recv();
     }
