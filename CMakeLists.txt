@@ -27,13 +27,6 @@ target_link_libraries(example_walk ${EXTRA_LIBS})
 add_executable(example_wirelessHandle examples/example_wirelessHandle.cpp)
 target_link_libraries(example_wirelessHandle ${EXTRA_LIBS})
 
-# one pc multi process
-add_executable(lcm_server_high examples/lcm_server_high.cpp)
-target_link_libraries(lcm_server_high ${EXTRA_LIBS})
-
-add_executable(lcm_server_low examples/lcm_server_low.cpp)
-target_link_libraries(lcm_server_low ${EXTRA_LIBS})
-
 # multi pc
 add_executable(udp_send_test examples/multi_pc_udp_send.cpp)
 target_link_libraries(udp_send_test ${EXTRA_LIBS})
