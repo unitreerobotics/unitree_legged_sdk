@@ -22,7 +22,7 @@ enum class HighLevelType {
 	Sport
 };
 
-string VersionSDK();
+// string VersionSDK();
 void InitEnvironment();
 
 
