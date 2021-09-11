@@ -12,7 +12,7 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    Custom(uint8_t level): safe(LeggedType::Go1), udp(level){
+    Custom(uint8_t level): safe(LeggedType::A1), udp(level){
         udp.InitCmdData(cmd);
     }
     void UDPSend();
@@ -59,8 +59,7 @@ void Custom::RobotControl()
         cmd.motorCmd[FR_1].Kd = 0;
         cmd.motorCmd[FR_1].tau = torque;
     }
-    int res = safe.PowerProtect(cmd, state, 1);
-    if(res < 0) exit(-1);
+    safe.PowerProtect(cmd, state, 1);
 
     udp.SetSend(cmd);
 }
