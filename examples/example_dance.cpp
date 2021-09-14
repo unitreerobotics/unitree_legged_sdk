@@ -13,12 +13,8 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    // Custom(uint8_t level): safe(LeggedType::A1), udp(level){
-    // Custom(uint8_t level): safe(LeggedType::A1), udp(8090, "192.168.123.11", 8082, sizeof(HighCmd), sizeof(HighState)){
     Custom(uint8_t level): safe(LeggedType::A1), udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState)){
         udp.InitCmdData(cmd);
-        udp.SetDisconnectTime(dt, 1);
-        // udp.SetDisconnectTime(0, 0);
     }
     void UDPRecv();
     void UDPSend();
@@ -48,9 +44,6 @@ void Custom::RobotControl()
     motiontime += 2;
     udp.GetRecv(state);
     // printf("%d   %f\n", motiontime, state.forwardSpeed);
-    // printf("%f %f \n", state.imu.quaternion[0], state.imu.quaternion[1]);
-    // printf("%f %f \n", state.imu.rpy[1], state.imu.rpy[2]);
-    // printf("%f %f %f %f %f\n", state.imu.rpy[1], state.imu.rpy[2], state.position[0], state.position[1], state.velocity[0]);
 
     cmd.mode = 0;      // 0:idle, default stand      1:forced stand     2:walk continuously
     cmd.gaitType = 0;
@@ -63,7 +56,6 @@ void Custom::RobotControl()
     cmd.velocity[0] = 0.0f;
     cmd.velocity[1] = 0.0f;
     cmd.yawSpeed = 0.0f;
-
 
 
     if(motiontime > 0 && motiontime < 4000){
@@ -117,9 +109,6 @@ void Custom::RobotControl()
     if(motiontime > 27000 && motiontime < 28000){
         cmd.mode = 1;
     }
-
-
-
 
     udp.SetSend(cmd);
 }
