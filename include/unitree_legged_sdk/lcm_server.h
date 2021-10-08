@@ -1,7 +1,6 @@
-/************************************************************************
-Copyright (c) 2020, Unitree Robotics.Co.Ltd. All rights reserved.
-Use of this source code is governed by the MPL-2.0 license, see LICENSE.
-************************************************************************/
+/*****************************************************************
+ Copyright (c) 2021, Unitree Robotics.Co.Ltd. All rights reserved.
+******************************************************************/
 
 #ifndef _UNITREE_LEGGED_LCM_SERVER_
 #define _UNITREE_LEGGED_LCM_SERVER_
@@ -59,7 +58,9 @@ void Lcm_Server_Low::RobotControl()
 class Lcm_Server_High
 {
 public:
-    Lcm_Server_High(): udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState)), mylcm(HIGHLEVEL){
+    Lcm_Server_High(): 
+    udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState)),
+    mylcm(HIGHLEVEL){
         udp.InitCmdData(cmd);
     }
     void UDPRecv(){
