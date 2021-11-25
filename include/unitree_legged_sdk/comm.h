@@ -128,21 +128,22 @@ namespace UNITREE_LEGGED_SDK
 		uint16_t robotID;
 		uint32_t SN;
 		uint8_t bandWidth;
+		IMU imu;
+		MotorState motorState[20];
+		BmsState bms;
+		int16_t footForce[4];
+		int16_t footForceEst[4];
 		uint8_t mode;
 		float progress;
-		IMU imu;
-		uint8_t gaitType;                  // 0.idle  1.trot  2.trot running  3.climb stair
+		uint8_t gaitType;                  // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
 		float footRaiseHeight;             // (unit: m, default: 0.08m), foot up height while walking
 		float position[3];                 // (unit: m), from own odometry in inertial frame, usually drift
 		float bodyHeight;                  // (unit: m, default: 0.28m),
 		float velocity[3];                 // (unit: m/s), forwardSpeed, sideSpeed, rotateSpeed in body frame
 		float yawSpeed;                    // (unit: rad/s), rotateSpeed in body frame        
+		float rangeObstacle[4];
 		Cartesian footPosition2Body[4];    // foot position relative to body
 		Cartesian footSpeed2Body[4];       // foot speed relative to body
-		int8_t temperature[20];
-		BmsState bms;
-		int16_t footForce[4];
-		int16_t footForceEst[4];
 		uint8_t wirelessRemote[40];
 		uint32_t reserve;
 		uint32_t crc;
@@ -168,7 +169,6 @@ namespace UNITREE_LEGGED_SDK
 											// 11. straightHand
 											// 12. dance1
 											// 13. dance2
-											// 14. two leg stand
 
 		uint8_t gaitType;                  // 0.idle  1.trot  2.trot running  3.climb stair
 		uint8_t speedLevel;                // 0. default low speed. 1. medium speed 2. high speed. during walking, only respond MODE 3

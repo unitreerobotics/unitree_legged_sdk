@@ -1,11 +1,14 @@
-# v3.4
+# v3.4.2
 The unitree_legged_sdk is mainly used for communication between PC and Controller board.
 It also can be used in other PCs with UDP.
 
 ### Notice
 support robot: Go1
 
-not support robot: Laikago, Aliengo, A1. (Check release [v3.2](https://github.com/unitreerobotics/unitree_legged_sdk/releases/tag/v3.2) for support)
+not support robot: Laikago, Aliengo, A1. (Check release [v3.3.1](https://github.com/unitreerobotics/unitree_legged_sdk/releases/tag/v3.3.1) for support)
+
+### Sport Mode
+Legged_sport >= v1.32
 
 ### Dependencies
 * [Boost](http://www.boost.org) (version 1.5.4 or higher)

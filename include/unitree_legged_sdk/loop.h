@@ -17,7 +17,7 @@
 namespace UNITREE_LEGGED_SDK 
 {
 
-constexpr int THREAD_PRIORITY    = 99;   // real-time priority
+constexpr int THREAD_PRIORITY    = 95;   // real-time priority
 
 typedef boost::function<void ()> Callback;
 
@@ -40,6 +40,10 @@ private:
   std::thread _thread;
 };
 
+/*
+  period     unit:second
+  bindCPU    change the CPU affinity of this thread
+*/
 class LoopFunc : public Loop {
 public:
   LoopFunc(std::string name, float period, const Callback& _cb)

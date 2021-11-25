@@ -14,7 +14,7 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    Custom(uint8_t level): safe(LeggedType::A1), udp(level){
+    Custom(uint8_t level): safe(LeggedType::Go1), udp(level){
         udp.InitCmdData(cmd);
     }
     void UDPSend();

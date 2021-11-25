@@ -49,8 +49,8 @@ namespace UNITREE_LEGGED_SDK
             int sendLength, int recvLength, bool initiativeDisconnect = false, RecvEnum recvType = RecvEnum::nonBlock, bool setIpPort = false);  
         ~UDP();
         
-        void SetIpPort(const char* targetIP, uint16_t targetPort);  // if not indicated at constructor function
-        void SetRecvTimeout(int time);                                                  // use in RecvEnum::blockTimeout  (unit: ms)
+        void SetIpPort(const char* targetIP, uint16_t targetPort);        // if not indicated at constructor function
+        void SetRecvTimeout(int time);                                    // use in RecvEnum::blockTimeout  (unit: ms)
         
         void SetDisconnectTime(float callback_dt, float disconnectTime);  // initiativeDisconnect = true, disconnect for another IP to connect
         void SetAccessibleTime(float callback_dt, float accessibleTime);  // check if can access data
