@@ -1,6 +1,7 @@
 /*****************************************************************
  Copyright (c) 2020, Unitree Robotics.Co.Ltd. All rights reserved.
 ******************************************************************/
+
 #ifndef _MULTI_PC_TYPE_H_
 #define _MULTI_PC_TYPE_H_
 

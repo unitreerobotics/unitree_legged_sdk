@@ -106,7 +106,6 @@ namespace UNITREE_LEGGED_SDK
 		uint8_t bandWidth;
 		IMU imu;
 		MotorState motorState[20];
-		// BmsState bms;
 		int16_t footForce[4];
 		int16_t footForceEst[4];
 		uint8_t mode;
@@ -117,7 +116,6 @@ namespace UNITREE_LEGGED_SDK
 		float bodyHeight;                  // (unit: m, default: 0.28m),
 		float velocity[3];                 // (unit: m/s), forwardSpeed, sideSpeed, rotateSpeed in body frame
 		float yawSpeed;                    // (unit: rad/s), rotateSpeed in body frame        
-		// float rangeObstacle[4];
 		Cartesian footPosition2Body[4];    // foot position relative to body
 		Cartesian footSpeed2Body[4];       // foot speed relative to body
 		uint8_t wirelessRemote[40];
@@ -154,7 +152,6 @@ namespace UNITREE_LEGGED_SDK
 		float euler[3];                    // (unit: rad), roll pitch yaw in stand mode
 		float velocity[2];                 // (unit: m/s), forwardSpeed, sideSpeed in body frame
 		float yawSpeed;                    // (unit: rad/s), rotateSpeed in body frame
-		// BmsCmd bms;
 		LED led[4];
 		uint8_t wirelessRemote[40];
 		uint32_t reserve;

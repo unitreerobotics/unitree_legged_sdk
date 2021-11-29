@@ -10,7 +10,9 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    Custom(uint8_t level): safe(LeggedType::A1), udp(level), mylcm(level){}
+    Custom(uint8_t level): 
+    udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState)), 
+    mylcm(level){}
     void UDPRecv(){
         udp.Recv();
     }
@@ -20,7 +22,6 @@ public:
     void LCMRecv();
     void RobotControl();
     
-    Safety safe;
     UDP udp;
     LCM mylcm;
     HighCmd cmd = {0};
@@ -52,7 +53,7 @@ void Custom::RobotControl()
 int main(void) 
 {
     Custom custom(HIGHLEVEL);
-    InitEnvironment();
+    // InitEnvironment();
     custom.mylcm.SubscribeCmd();
 
     LoopFunc loop_control("control_loop", 0.002, 3, boost::bind(&Custom::RobotControl, &custom));

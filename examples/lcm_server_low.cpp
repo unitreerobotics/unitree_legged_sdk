@@ -10,7 +10,7 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    Custom(uint8_t level) : safe(LeggedType::A1), udp(level), mylcm(level){}
+    Custom(uint8_t level) : udp(level), mylcm(level){}
     void UDPRecv(){
         udp.Recv();
     }
@@ -20,7 +20,6 @@ public:
     void LCMRecv();
     void RobotControl() ;
 
-    Safety safe;
     UDP udp;
     LCM mylcm;
     LowCmd cmd = {0};
@@ -45,11 +44,6 @@ void Custom::RobotControl()
 {
     udp.GetRecv(state);
     mylcm.Send(state);
-    // printf("State size: %ld, tick: %d, robotid: %d\n", sizeof(state), state.tick, state.robotID);
-    // printf("%d   %f %f %f\n", state.tick, state.imu.rpy[0], state.imu.rpy[1], state.imu.rpy[2]);
-    // printf("State size: %ld %ld\n", sizeof(state), sizeof(state.motorState[0]));
-    // printf("%f %f %f %d\n", state.motorState[11].q, state.motorState[11].dq, state.motorState[11].tauEst, state.motorState[11].temperature);
-    // printf("%d %d %d %d     %d\n", state.footForce[0], state.footForce[1],state.footForce[2],state.footForce[3], state.tick);
     mylcm.Get(cmd);
     udp.SetSend(cmd);
 }
@@ -58,7 +52,7 @@ int main(void)
 {
     
     Custom custom(LOWLEVEL);
-    InitEnvironment();
+    // InitEnvironment();
     custom.mylcm.SubscribeCmd();
 
     LoopFunc loop_control("control_loop", 0.002, 3, boost::bind(&Custom::RobotControl, &custom));

@@ -22,8 +22,9 @@ enum class HighLevelType {
 	Sport
 };
 
-string VersionSDK();
+// string VersionSDK();
 void InitEnvironment();
+
 
 // definition of each leg and joint
 constexpr int FR_ = 0;       // leg index
