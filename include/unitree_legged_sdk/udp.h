@@ -48,7 +48,7 @@ namespace UNITREE_LEGGED_SDK
         UDP(uint16_t localPort, 
             int sendLength, int recvLength, bool initiativeDisconnect = false, RecvEnum recvType = RecvEnum::nonBlock, bool setIpPort = false);  
         ~UDP();
-        
+
         void SetIpPort(const char* targetIP, uint16_t targetPort);        // if not indicated at constructor function
         void SetRecvTimeout(int time);                                    // use in RecvEnum::blockTimeout  (unit: ms)
         
@@ -77,24 +77,23 @@ namespace UNITREE_LEGGED_SDK
     private:
         void init(uint16_t localPort, const char* targetIP = NULL, uint16_t targetPort = 0);
         
-        uint8_t levelFlag = HIGHLEVEL;   // default: high level
         int sockFd;
         bool connected;                  // udp works with connect() function, rather than server mode
         int sendLength;
         int recvLength;
-        char* recvBuf;
-        char* recvSource;
-        char* sendBuf;
         int lose_recv;
+
+        char* recvBuf;
+        char* recvAvaliable;
+        char* sendBuf;
+        pthread_mutex_t sendMutex;
+        pthread_mutex_t recvMutex;
+        pthread_mutex_t udpMutex;
 
         bool nonblock = true;
         int blockTimeout = -1;             // use time out method or not, (unit: ms)
         bool initiativeDisconnect = false;           // 
-        // bool initAsServer = false;
 
-        pthread_mutex_t sendMutex;
-        pthread_mutex_t recvMutex;
-        pthread_mutex_t udpMutex;
 	};
 
 }

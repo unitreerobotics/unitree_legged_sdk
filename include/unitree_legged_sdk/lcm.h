@@ -63,6 +63,7 @@ namespace UNITREE_LEGGED_SDK
         void Get(LowCmd&);
         void Get(HighState&);
         void Get(LowState&);
+        void SetOverTime(float);        // unit:second, will block this long
 
         LCMHandler<HighState>   highStateLCMHandler;
         LCMHandler<LowState>    lowStateLCMHandler;
