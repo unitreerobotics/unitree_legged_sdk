@@ -4,7 +4,7 @@ Use of this source code is governed by the MPL-2.0 license, see LICENSE.
 ************************************************************************/
 
 #include "unitree_legged_sdk/unitree_legged_sdk.h"
-#include "unitree_legged_sdk/unitree_joystick.h"
+#include "unitree_legged_sdk/joystick.h"
 #include <math.h>
 #include <iostream>
 #include <unistd.h>
@@ -45,7 +45,7 @@ void Custom::RobotControl()
     motiontime++;
     udp.GetRecv(state);
 
-    memcpy(&_keyData, state.wirelessRemote, 40);
+    memcpy(&_keyData, &state.wirelessRemote[0], 40);
 
     if((int)_keyData.btn.components.A == 1){
         std::cout << "The key A is pressed, and the value of lx is " << _keyData.lx << std::endl;
