@@ -1,9 +1,11 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(unitree_legged_sdk)
 
-include_directories(include)
+include(FindPkgConfig)
+pkg_check_modules(LCM lcm REQUIRED)
+include_directories(include ${LCM_INCLUDE_DIRS})
 
-link_directories(lib)
+link_directories(lib ${LCM_LIBDIR})
 
 add_compile_options(-std=c++11)
 
