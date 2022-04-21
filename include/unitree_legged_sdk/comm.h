@@ -186,7 +186,7 @@ namespace UNITREE_LEGGED_SDK
 		uint8_t speedLevel;                 // 0. default low speed. 1. medium speed 2. high speed. during walking, only respond MODE 3
 		float footRaiseHeight;              // (unit: m, default: 0.08m), foot up height while walking, delta value
 		float bodyHeight;                   // (unit: m, default: 0.28m), delta value
-		std::array<float, 2> postion;       // (unit: m), desired position in inertial frame
+		std::array<float, 2> position;       // (unit: m), desired position in inertial frame
 		std::array<float, 3> euler;         // (unit: rad), roll pitch yaw in stand mode
 		std::array<float, 2> velocity;      // (unit: m/s), forwardSpeed, sideSpeed in body frame
 		float yawSpeed;                     // (unit: rad/s), rotateSpeed in body frame
