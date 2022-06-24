@@ -60,7 +60,7 @@ void Custom::RobotControl()
     motiontime++;
     udp.GetRecv(state);
     // printf("%d  %f\n", motiontime, state.motorState[FR_2].q);
-    printf("%d  %f\n", motiontime, state.imu.quaternion[2]);
+    printf("%d  %f  %f\n", motiontime, state.motorState[FR_1].q, state.motorState[FR_1].dq);
 
     // gravity compensation
     cmd.motorCmd[FR_0].tau = -0.65f;
@@ -84,6 +84,8 @@ void Custom::RobotControl()
             double rate = rate_count/200.0;                       // needs count to 200
             Kp[0] = 5.0; Kp[1] = 5.0; Kp[2] = 5.0; 
             Kd[0] = 1.0; Kd[1] = 1.0; Kd[2] = 1.0;
+            // Kp[0] = 20.0; Kp[1] = 20.0; Kp[2] = 20.0; 
+            // Kd[0] = 2.0; Kd[1] = 2.0; Kd[2] = 2.0;
             
             qDes[0] = jointLinearInterpolation(qInit[0], sin_mid_q[0], rate);
             qDes[1] = jointLinearInterpolation(qInit[1], sin_mid_q[1], rate);
@@ -125,7 +127,7 @@ void Custom::RobotControl()
         safe.PositionLimit(cmd);
         int res1 = safe.PowerProtect(cmd, state, 1);
         // You can uncomment it for position protection
-        // int res2 = safe.PositionProtect(cmd, state, 0.087);
+        // int res2 = safe.PositionProtect(cmd, state, 10);
         if(res1 < 0) exit(-1);
     }
 

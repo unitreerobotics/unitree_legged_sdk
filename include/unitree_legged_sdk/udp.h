@@ -55,15 +55,15 @@ namespace UNITREE_LEGGED_SDK
         void SetDisconnectTime(float callback_dt, float disconnectTime);  // initiativeDisconnect = true, disconnect for another IP to connect
         void SetAccessibleTime(float callback_dt, float accessibleTime);  // check if can access data
 
-        int SetSend(char*);
-        void GetRecv(char*);
         int Send();
         int Recv(); // directly save in buffer
 
         void InitCmdData(HighCmd& cmd);
         void InitCmdData(LowCmd& cmd);
-		int SetSend(HighCmd&);
+        int SetSend(char*);
+        int SetSend(HighCmd&);
         int SetSend(LowCmd&);
+        void GetRecv(char*);
         void GetRecv(HighState&);
         void GetRecv(LowState&);
 

@@ -9,7 +9,6 @@
 #include "safety.h"
 #include "udp.h"
 #include "loop.h"
-#include "lcm.h"
 #include "quadruped.h"
 #include "joystick.h"
 #include <boost/bind.hpp>

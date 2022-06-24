@@ -49,11 +49,6 @@ namespace UNITREE_LEGGED_SDK
 		float z;
 	} Cartesian;
 
-	inline std::string cartesian_repr(const Cartesian& c)
-	{
-		return "Cartesian([" + std::to_string(c.x) + ", " + std::to_string(c.y) + ", " + std::to_string(c.z) + "])";
-	}
-
 	typedef struct
 	{
 		std::array<float, 4> quaternion;               // quaternion, normalized, (w,x,y,z)
@@ -62,16 +57,6 @@ namespace UNITREE_LEGGED_SDK
 		std::array<float, 3> rpy;                      // euler angle（unit: rad)
 		int8_t temperature;
 	} IMU;                                 // when under accelerated motion, the attitude of the robot calculated by IMU will drift.
-
-	inline std::string imu_repr(const IMU& imu)
-	{
-		return "IMU([\n \
-			quaternion([" + std::to_string(imu.quaternion[0]) + ", " + std::to_string(imu.quaternion[1]) + ", " + std::to_string(imu.quaternion[2]) + ", " + std::to_string(imu.quaternion[3]) + "]),\n \
-			gyroscope(["  + std::to_string(imu.gyroscope[0]) + ", " + std::to_string(imu.gyroscope[1]) + ", " + std::to_string(imu.gyroscope[2]) + "]),\n \
-			accelerometer([" + std::to_string(imu.accelerometer[0]) + ", " + std::to_string(imu.accelerometer[1]) + ", " + std::to_string(imu.accelerometer[2]) + "]),\n \
-			rpy([" + std::to_string(imu.rpy[0]) + ", " + std::to_string(imu.rpy[1]) + ", " + std::to_string(imu.rpy[2]) + "]),\n \
-			temperature(" + std::to_string(imu.temperature) + ")\n])";
-	}
 
 	typedef struct
 	{

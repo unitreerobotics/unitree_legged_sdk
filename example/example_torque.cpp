@@ -52,6 +52,8 @@ void Custom::RobotControl()
         float torque = (0 - state.motorState[FR_1].q)*10.0f + (0 - state.motorState[FR_1].dq)*1.0f;
         if(torque > 5.0f) torque = 5.0f;
         if(torque < -5.0f) torque = -5.0f;
+        // if(torque > 15.0f) torque = 15.0f;
+        // if(torque < -15.0f) torque = -15.0f;
 
         cmd.motorCmd[FR_1].q = PosStopF;
         cmd.motorCmd[FR_1].dq = VelStopF;
