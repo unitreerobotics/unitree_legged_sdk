@@ -48,11 +48,17 @@ target_link_libraries(udp_recv_test ${EXTRA_LIBS})
 add_executable(lcm_server examples/lcm_server.cpp)
 target_link_libraries(lcm_server ${EXTRA_LIBS})
 
+# pybind
+add_subdirectory(pybind11)
+pybind11_add_module(robot_interface python_interface.cpp)
+target_link_libraries(robot_interface ${EXTRA_LIBS})
+
 # install
 install(TARGETS
   example_position example_velocity example_torque example_walk example_wirelessHandle
   udp_send_test udp_recv_test
   lcm_server
+  robot_interface
   DESTINATION bin)
 install(DIRECTORY lib/
   DESTINATION lib
