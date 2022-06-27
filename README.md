@@ -28,5 +28,22 @@ cmake ../
 make
 ```
 
-### Usage
+### Run
+
+#### Cpp
 Run examples with 'sudo' for memory locking.
+
+#### Python
+##### arm
+1. change
+```
+sys.path.append('../lib/python/amd64')
+```
+to
+```
+sys.path.append('../lib/python/arm64')
+```
+2. run following to find libunitree_legged_sdk.so
+```
+export LD_LIBRARY_PATH=/path-to-unitree_legged_sdk/lib/cpp/arm64:$LD_LIBRARY_PATH
+```
