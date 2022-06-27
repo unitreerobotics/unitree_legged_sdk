@@ -19,10 +19,6 @@ enum class LeggedType {
 	B1
 };
 
-enum class HighLevelType {
-	Basic,
-	Sport
-};
 
 string VersionSDK();
 int InitEnvironment();      // memory lock

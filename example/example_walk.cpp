@@ -15,8 +15,7 @@ class Custom
 public:
     Custom(uint8_t level): 
       safe(LeggedType::Go1), 
-      udp(8090, "192.168.123.161", 8082, sizeof(HighCmd), sizeof(HighState))
-    {
+      udp(level, 8090, "192.168.123.161", 8082){
         udp.InitCmdData(cmd);
     }
     void UDPRecv();

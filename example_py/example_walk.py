@@ -13,8 +13,7 @@ if __name__ == '__main__':
     HIGHLEVEL = 0xee
     LOWLEVEL  = 0xff
 
-    # udp = sdk.UDP(8090, "192.168.123.161", 8082, 129, 1087, False, sdk.RecvEnum.nonBlock)
-    udp = sdk.UDP(HIGHLEVEL, sdk.HighLevelType.Sport)
+    udp = sdk.UDP(HIGHLEVEL, 8080, "192.168.123.161", 8082)
 
     cmd = sdk.HighCmd()
     state = sdk.HighState()

@@ -12,7 +12,9 @@ using namespace UNITREE_LEGGED_SDK;
 class Custom
 {
 public:
-    Custom(uint8_t level): safe(LeggedType::Go1), udp(level){
+    Custom(uint8_t level): 
+        safe(LeggedType::Go1), 
+        udp(level, 8090, "192.168.123.10", 8007){
         udp.InitCmdData(cmd);
     }
     void UDPSend();

@@ -42,7 +42,7 @@ namespace UNITREE_LEGGED_SDK
     // Notice: User defined data(like struct) should add crc(4Byte) at the end.
     class UDP {
 	public:
-        UDP(uint8_t level, HighLevelType highControl = HighLevelType::Basic);  // unitree dafault IP and Port
+        UDP(uint8_t level, uint16_t localPort, const char* targetIP, uint16_t targetPort);  // udp use dafault length according to level
         UDP(uint16_t localPort, const char* targetIP, uint16_t targetPort, 
             int sendLength, int recvLength, bool initiativeDisconnect = false, RecvEnum recvType = RecvEnum::nonBlock);
         UDP(uint16_t localPort, 
