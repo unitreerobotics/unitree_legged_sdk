@@ -5,27 +5,20 @@
 #ifndef _UNITREE_LEGGED_QUADRUPED_H_
 #define _UNITREE_LEGGED_QUADRUPED_H_
 
-#include <string>
-
-using namespace std;
-
 namespace UNITREE_LEGGED_SDK 
 {
 
 enum class LeggedType { 
 	Aliengo,
-	A1,
-	Go1,
-	B1
+	A1
 };
 
-// enum class LevelType {
-// 	Low,
-// 	High
-// };
+enum class HighLevelType {
+	Basic,
+	Sport
+};
 
-string VersionSDK();
-int InitEnvironment();      // memory lock
+void InitEnvironment();
 
 // definition of each leg and joint
 constexpr int FR_ = 0;       // leg index
