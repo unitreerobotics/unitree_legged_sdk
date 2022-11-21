@@ -3,14 +3,20 @@
 import sys
 import time
 import math
-import numpy as np
+#import numpy as np
 
 sys.path.append('../lib/python/amd64')
 import robot_interface as sdk
 
 def jointLinearInterpolation(initPos, targetPos, rate):
 
-    rate = np.fmin(np.fmax(rate, 0.0), 1.0)
+    #rate = np.fmin(np.fmax(rate, 0.0), 1.0)
+
+    if rate > 1.0:
+        rate = 1.0
+    elif rate < 0.0:
+        rate = 0.0
+
     p = initPos*(1-rate) + targetPos*rate
     return p
 
@@ -34,8 +40,9 @@ if __name__ == '__main__':
     Kp = [0, 0, 0]
     Kd = [0, 0, 0]
 
+    # udp = sdk.UDP(8080, "192.168.123.10", 8007, 614, 807, False, sdk.RecvEnum.nonBlock)
     udp = sdk.UDP(LOWLEVEL, 8080, "192.168.123.10", 8007)
-    safe = sdk.Safety(sdk.LeggedType.Go1)
+    safe = sdk.Safety(sdk.LeggedType.B1)
     
     cmd = sdk.LowCmd()
     state = sdk.LowState()
@@ -66,10 +73,10 @@ if __name__ == '__main__':
             if( motiontime >= 10 and motiontime < 400):
                 rate_count += 1
                 rate = rate_count/200.0                       # needs count to 200
-                Kp = [5, 5, 5]
-                Kd = [1, 1, 1]
-                # Kp = [20, 20, 20]
-                # Kd = [2, 2, 2]
+                # Kp = [5, 5, 5]
+                # Kd = [1, 1, 1]
+                Kp = [20, 20, 20]
+                Kd = [2, 2, 2]
                 
                 qDes[0] = jointLinearInterpolation(qInit[0], sin_mid_q[0], rate)
                 qDes[1] = jointLinearInterpolation(qInit[1], sin_mid_q[1], rate)
@@ -89,13 +96,14 @@ if __name__ == '__main__':
                 qDes[0] = sin_mid_q[0]
                 qDes[1] = sin_mid_q[1] + sin_joint1
                 qDes[2] = sin_mid_q[2] + sin_joint2
+                # qDes[2] = sin_mid_q[2]
             
 
             cmd.motorCmd[d['FR_0']].q = qDes[0]
             cmd.motorCmd[d['FR_0']].dq = 0
             cmd.motorCmd[d['FR_0']].Kp = Kp[0]
             cmd.motorCmd[d['FR_0']].Kd = Kd[0]
-            cmd.motorCmd[d['FR_0']].tau = -0.65
+            cmd.motorCmd[d['FR_0']].tau = -5.0
 
             cmd.motorCmd[d['FR_1']].q = qDes[1]
             cmd.motorCmd[d['FR_1']].dq = 0
@@ -111,8 +119,11 @@ if __name__ == '__main__':
             # cmd.motorCmd[d['FR_2']].tau = 2 * sin(t*freq_rad)
 
 
-        if(motiontime > 10):
-            safe.PowerProtect(cmd, state, 1)
+        # if(motiontime > 10):
+        #     safe.PowerProtect(cmd, state, 1)
+
+
+
 
         udp.SetSend(cmd)
         udp.Send()

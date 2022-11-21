@@ -19,6 +19,7 @@ if __name__ == '__main__':
     HIGHLEVEL = 0xee
     LOWLEVEL  = 0xff
 
+    # udp = sdk.UDP(8080, "192.168.123.10", 8007, 614, 807, False, sdk.RecvEnum.nonBlock)
     udp = sdk.UDP(LOWLEVEL, 8080, "192.168.123.10", 8007)
     safe = sdk.Safety(sdk.LeggedType.Go1)
     
@@ -33,7 +34,12 @@ if __name__ == '__main__':
         motiontime += 1
 
         # print(motiontime)
-        # print(state.imu.rpy[0])
+        # print(state.imu.rpy[2])
+        cmd.motorCmd[d['FR_0']].q = PosStopF
+        cmd.motorCmd[d['FR_0']].dq = VelStopF
+        cmd.motorCmd[d['FR_0']].Kp = 0
+        cmd.motorCmd[d['FR_0']].Kd = 0
+        cmd.motorCmd[d['FR_0']].tau = -5.0
         
         
         udp.Recv()
@@ -42,17 +48,18 @@ if __name__ == '__main__':
         if( motiontime >= 500):
             speed = 2 * math.sin(3*math.pi*Tpi/2000.0)
 
-            # cmd.motorCmd[d['FL_2']].q = PosStopF
-            cmd.motorCmd[d['FL_2']].q = 0
-            cmd.motorCmd[d['FL_2']].dq = speed
-            cmd.motorCmd[d['FL_2']].Kp = 0
-            cmd.motorCmd[d['FL_2']].Kd = 4
-            cmd.motorCmd[d['FL_2']].tau = 0.0
+            cmd.motorCmd[d['FL_1']].q = PosStopF
+            #cmd.motorCmd[d['FR_2']].q = 0
+            cmd.motorCmd[d['FR_1']].dq = speed
+            cmd.motorCmd[d['FR_1']].Kp = 0
+            cmd.motorCmd[d['FR_1']].Kd = 4
+            cmd.motorCmd[d['FR_1']].tau = 0.0
 
             Tpi += 1
         
-        if(motiontime > 10):
-            safe.PowerProtect(cmd, state, 1)
+        # if(motiontime > 10):
+        #     safe.PowerProtect(cmd, state, 1)
         
+
         udp.SetSend(cmd)
         udp.Send()

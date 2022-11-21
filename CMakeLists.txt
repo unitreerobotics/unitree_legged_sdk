@@ -2,7 +2,9 @@ cmake_minimum_required(VERSION 2.8.3)
 project(unitree_legged_sdk)
 
 include_directories(include)
+include_directories(./)
 
+# add_compile_options(-std=c++11)
 add_compile_options(-std=c++14)
 
 # check arch and os
@@ -36,10 +38,5 @@ add_executable(example_joystick example/example_joystick.cpp)
 target_link_libraries(example_joystick ${EXTRA_LIBS})
 
 
-# install
-install(TARGETS
-  example_position example_velocity example_torque example_walk example_joystick
-  DESTINATION bin/unitree)
-install(DIRECTORY lib/cpp/${ARCH}/
-  DESTINATION lib/unitree
-  USE_SOURCE_PERMISSIONS)
+
+

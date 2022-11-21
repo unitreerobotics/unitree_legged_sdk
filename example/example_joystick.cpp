@@ -15,7 +15,7 @@ class Custom
 {
 public:
     Custom(uint8_t level): 
-        safe(LeggedType::Go1), 
+        safe(LeggedType::B1), 
         udp(level, 8090, "192.168.123.10", 8007){
         udp.InitCmdData(cmd);
     }

@@ -19,6 +19,10 @@ enum class LeggedType {
 	B1
 };
 
+// enum class LevelType {
+// 	Low,
+// 	High
+// };
 
 string VersionSDK();
 int InitEnvironment();      // memory lock

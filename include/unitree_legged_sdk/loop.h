@@ -13,6 +13,7 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
+// #include <pybind11/pybind11.h>
 
 namespace UNITREE_LEGGED_SDK 
 {
@@ -39,6 +40,19 @@ private:
   bool _isrunning = false;
   std::thread _thread;
 };
+
+// class PyLoop : public Loop {
+// public:
+//   using Loop::Loop;
+
+//   void functionCB() override {
+//     PYBIND11_OVERRIDE_PURE (
+//       void,
+//       Loop,
+//       functionCB
+//     );
+//   }
+// };
 
 /*
   period     unit:second
