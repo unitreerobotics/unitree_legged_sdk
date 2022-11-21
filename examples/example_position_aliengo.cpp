@@ -11,13 +11,23 @@
 using namespace std;
 using namespace UNITREE_LEGGED_SDK;
 
+// low cmd
+constexpr uint16_t TARGET_PORT = 8007;
+constexpr uint16_t LOCAL_PORT = 8082;
+constexpr char TARGET_IP[] = "192.168.123.10";   // target IP address
+
+const int LOW_CMD_LENGTH = 610;
+const int LOW_STATE_LENGTH = 771;
+
+
 class Custom
 {
 public:
-    Custom(uint8_t level) : safe(LeggedType::B1),
-                            udp(level, 8090, "192.168.123.10", 8007)
+    Custom(uint8_t level) : safe(LeggedType::Aliengo),
+                            udp(LOCAL_PORT, TARGET_IP,TARGET_PORT, LOW_CMD_LENGTH, LOW_STATE_LENGTH)
     {
         udp.InitCmdData(cmd);
+        cmd.levelFlag = LOWLEVEL;
     }
     void UDPRecv();
     void UDPSend();
@@ -65,10 +75,10 @@ void Custom::RobotControl()
     printf("%d  %f  %f\n", motiontime, state.motorState[FR_1].q, state.motorState[FR_1].dq);
 
     // gravity compensation
-    cmd.motorCmd[FR_0].tau = -5.0f;
-    // cmd.motorCmd[FL_0].tau = +0.65f;
-    // cmd.motorCmd[RR_0].tau = -0.65f;
-    // cmd.motorCmd[RL_0].tau = +0.65f;
+    cmd.motorCmd[FR_0].tau = -1.6f;
+    // cmd.motorCmd[FL_0].tau = +1.0f;
+    // cmd.motorCmd[RR_0].tau = -1.0f;
+    // cmd.motorCmd[RL_0].tau = +1.0f;
 
     // if( motiontime >= 100){
     if (motiontime >= 0)
@@ -123,7 +133,7 @@ void Custom::RobotControl()
         cmd.motorCmd[FR_0].dq = 0;
         cmd.motorCmd[FR_0].Kp = Kp[0];
         cmd.motorCmd[FR_0].Kd = Kd[0];
-        cmd.motorCmd[FR_0].tau = -4.0f;
+        cmd.motorCmd[FR_0].tau = -1.6f;
 
         cmd.motorCmd[FR_1].q = qDes[1];
         cmd.motorCmd[FR_1].dq = 0;

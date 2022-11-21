@@ -1,8 +1,8 @@
 /*****************************************************************
 Copyright (c) 2020, Unitree Robotics.Co.Ltd. All rights reserved.
 *****************************************************************/
-#ifndef _UNITREE_LEGGED_JOYSTICK_H_
-#define _UNITREE_LEGGED_JOYSTICK_H_
+#ifndef UNITREE_JOYSTICK_H
+#define UNITREE_JOYSTICK_H
 
 #include <stdint.h>
 // 16b
@@ -35,10 +35,9 @@ typedef struct {
     float lx;
     float rx;
     float ry;
-    float L2;
+    float reserve;
     float ly;
-
     uint8_t idle[16];
 } xRockerBtnDataStruct;
 
-#endif  // _UNITREE_LEGGED_JOYSTICK_H_
+#endif  // UNITREE_JOYSTICK_H

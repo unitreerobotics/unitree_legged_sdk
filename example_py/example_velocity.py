@@ -7,6 +7,14 @@ import math
 sys.path.append('../lib/python/amd64')
 import robot_interface as sdk
 
+# low cmd
+TARGET_PORT = 8007
+LOCAL_PORT = 8082
+TARGET_IP = "192.168.123.10"   # target IP address
+
+LOW_CMD_LENGTH = 610
+LOW_STATE_LENGTH = 771
+
 
 if __name__ == '__main__':
 
@@ -20,12 +28,13 @@ if __name__ == '__main__':
     LOWLEVEL  = 0xff
 
     # udp = sdk.UDP(8080, "192.168.123.10", 8007, 614, 807, False, sdk.RecvEnum.nonBlock)
-    udp = sdk.UDP(LOWLEVEL, 8080, "192.168.123.10", 8007)
-    safe = sdk.Safety(sdk.LeggedType.Go1)
+    udp = sdk.UDP(LOCAL_PORT, TARGET_IP, TARGET_PORT, LOW_CMD_LENGTH, LOW_STATE_LENGTH, -1)
+    safe = sdk.Safety(sdk.LeggedType.Aliengo)
     
     cmd = sdk.LowCmd()
     state = sdk.LowState()
     udp.InitCmdData(cmd)
+    cmd.levelFlag = LOWLEVEL
 
     Tpi = 0
     motiontime = 0
@@ -34,12 +43,13 @@ if __name__ == '__main__':
         motiontime += 1
 
         # print(motiontime)
-        # print(state.imu.rpy[2])
+        # print(state.imu.rpy[0])
+
         cmd.motorCmd[d['FR_0']].q = PosStopF
         cmd.motorCmd[d['FR_0']].dq = VelStopF
         cmd.motorCmd[d['FR_0']].Kp = 0
         cmd.motorCmd[d['FR_0']].Kd = 0
-        cmd.motorCmd[d['FR_0']].tau = -5.0
+        cmd.motorCmd[d['FR_0']].tau = -1.6
         
         
         udp.Recv()
@@ -48,8 +58,8 @@ if __name__ == '__main__':
         if( motiontime >= 500):
             speed = 2 * math.sin(3*math.pi*Tpi/2000.0)
 
-            cmd.motorCmd[d['FL_1']].q = PosStopF
-            #cmd.motorCmd[d['FR_2']].q = 0
+            # cmd.motorCmd[d['FL_2']].q = PosStopF
+            cmd.motorCmd[d['FR_1']].q = 0
             cmd.motorCmd[d['FR_1']].dq = speed
             cmd.motorCmd[d['FR_1']].Kp = 0
             cmd.motorCmd[d['FR_1']].Kd = 4
