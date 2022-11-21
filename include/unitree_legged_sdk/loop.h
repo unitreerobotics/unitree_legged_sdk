@@ -13,11 +13,12 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include <boost/function.hpp>
+// #include <pybind11/pybind11.h>
 
 namespace UNITREE_LEGGED_SDK 
 {
 
-constexpr int THREAD_PRIORITY    = 99;   // real-time priority
+constexpr int THREAD_PRIORITY    = 95;   // real-time priority
 
 typedef boost::function<void ()> Callback;
 
@@ -40,6 +41,23 @@ private:
   std::thread _thread;
 };
 
+// class PyLoop : public Loop {
+// public:
+//   using Loop::Loop;
+
+//   void functionCB() override {
+//     PYBIND11_OVERRIDE_PURE (
+//       void,
+//       Loop,
+//       functionCB
+//     );
+//   }
+// };
+
+/*
+  period     unit:second
+  bindCPU    change the CPU affinity of this thread
+*/
 class LoopFunc : public Loop {
 public:
   LoopFunc(std::string name, float period, const Callback& _cb)

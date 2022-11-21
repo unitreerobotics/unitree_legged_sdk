@@ -4,40 +4,36 @@ Use of this source code is governed by the MPL-2.0 license, see LICENSE.
 ************************************************************************/
 
 #include "unitree_legged_sdk/unitree_legged_sdk.h"
+#include "unitree_legged_sdk/joystick.h"
 #include <math.h>
 #include <iostream>
 #include <unistd.h>
-#include <string.h>
 
 using namespace UNITREE_LEGGED_SDK;
-
-// high cmd
-constexpr uint16_t TARGET_PORT = 8082;
-constexpr uint16_t LOCAL_PORT = 8081;
-constexpr char TARGET_IP[] = "192.168.123.220";   // target IP address
 
 class Custom
 {
 public:
-    Custom(uint8_t level): safe(LeggedType::Aliengo),
-        udp(LOCAL_PORT, TARGET_IP,TARGET_PORT, sizeof(HighCmd), sizeof(HighState))
-    {
+    Custom(uint8_t level): 
+        safe(LeggedType::B1), 
+        udp(level, 8090, "192.168.123.10", 8007){
         udp.InitCmdData(cmd);
     }
-    void UDPRecv();
     void UDPSend();
+    void UDPRecv();
     void RobotControl();
 
     Safety safe;
     UDP udp;
-    HighCmd cmd = {0};
-    HighState state = {0};
+    LowCmd cmd = {0};
+    LowState state = {0};
+    xRockerBtnDataStruct _keyData;
     int motiontime = 0;
     float dt = 0.002;     // 0.001~0.01
 };
 
 void Custom::UDPRecv()
-{
+{ 
     udp.Recv();
 }
 
@@ -48,47 +44,28 @@ void Custom::UDPSend()
 
 void Custom::RobotControl() 
 {
-    motiontime += 2;
+    motiontime++;
     udp.GetRecv(state);
 
-    cmd.velocity[0] = 0.0f;
-    cmd.velocity[1] = 0.0f;
-    cmd.position[0] = 0.0f;
-    cmd.position[1] = 0.0f;
-    cmd.yawSpeed = 0.0f;;
+    memcpy(&_keyData, &state.wirelessRemote[0], 40);
 
-    cmd.mode = 0;
-    cmd.rpy[0]  = 0;
-    cmd.rpy[1] = 0;
-    cmd.rpy[2] = 0;
-    cmd.gaitType = 0;
-    cmd.dBodyHeight = 0;
-    cmd.dFootRaiseHeight = 0;
+    if((int)_keyData.btn.components.A == 1){
+        std::cout << "The key A is pressed, and the value of lx is " << _keyData.lx << std::endl;
+    }
 
-    if (motiontime == 2)
-    {
-        std::cout<<"begin sending commands."<<std::endl;
-    }
-    if (motiontime>1000 && motiontime <2000)
-    {
-        cmd.mode = 7;    // mode 7: must enter damping mode before using recovery
-    }
-    if (motiontime>2000 && motiontime <3000)
-    {
-        cmd.mode = 8;    // mode 8: recovery 
-    }
+    safe.PowerProtect(cmd, state, 1);
     udp.SetSend(cmd);
 }
 
-int main(void) 
+int main(void)
 {
-    std::cout << "Communication level is set to HIGH-level." << std::endl
-              << "WARNING: Make sure the robot is standing on the ground." << std::endl
+    std::cout << "Communication level is set to LOW-level." << std::endl
+              << "WARNING: Make sure the robot is hung up." << std::endl
               << "Press Enter to continue..." << std::endl;
     std::cin.ignore();
 
-    Custom custom(HIGHLEVEL);
-    InitEnvironment();
+    Custom custom(LOWLEVEL);
+    // InitEnvironment();
     LoopFunc loop_control("control_loop", custom.dt,    boost::bind(&Custom::RobotControl, &custom));
     LoopFunc loop_udpSend("udp_send",     custom.dt, 3, boost::bind(&Custom::UDPSend,      &custom));
     LoopFunc loop_udpRecv("udp_recv",     custom.dt, 3, boost::bind(&Custom::UDPRecv,      &custom));

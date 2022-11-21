@@ -9,22 +9,13 @@
 
 using namespace UNITREE_LEGGED_SDK;
 
-// low cmd
-constexpr uint16_t TARGET_PORT = 8007;
-constexpr uint16_t LOCAL_PORT = 8082;
-constexpr char TARGET_IP[] = "192.168.123.10";   // target IP address
-
-const int LOW_CMD_LENGTH = 610;
-const int LOW_STATE_LENGTH = 771;
-
 class Custom
 {
 public:
     Custom(uint8_t level): 
-        safe(LeggedType::Aliengo), 
-        udp(LOCAL_PORT, TARGET_IP,TARGET_PORT, LOW_CMD_LENGTH, LOW_STATE_LENGTH){
+        safe(LeggedType::B1), 
+        udp(level, 8090, "192.168.123.10", 8007){
         udp.InitCmdData(cmd);
-        cmd.levelFlag = LOWLEVEL;
     }
     void UDPSend();
     void UDPRecv();
@@ -55,7 +46,7 @@ void Custom::RobotControl()
     udp.GetRecv(state);
     printf("%d  %f  %f\n", motiontime, state.motorState[FR_1].q, state.motorState[FR_1].dq);
     // gravity compensation
-    cmd.motorCmd[FR_0].tau = -1.6f;
+    cmd.motorCmd[FR_0].tau = -5.0f;
     // cmd.motorCmd[FL_0].tau = +0.65f;
     // cmd.motorCmd[RR_0].tau = -0.65f;
     // cmd.motorCmd[RL_0].tau = +0.65f;
