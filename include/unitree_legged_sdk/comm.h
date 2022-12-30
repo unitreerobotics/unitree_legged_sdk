@@ -87,7 +87,7 @@ namespace UNITREE_LEGGED_SDK
 		std::array<int16_t, 4> footForce;
 		// int16_t footForceEst[4];           // force sensors
 		std::array<int16_t, 4> footForceEst;
-		uint32_t tick;                     // reference real-time from motion controller (unit: us)
+		uint32_t tick;                     // reference real-time from motion controller (unit: ms)
 		// uint8_t wirelessRemote[40];        // wireless commands
 		std::array<uint8_t, 40> wirelessRemote;
 		uint32_t reserve;
