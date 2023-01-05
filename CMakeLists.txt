@@ -112,7 +112,6 @@ install(
 )
 install(
   FILES ${CMAKE_CURRENT_SOURCE_DIR}/lib/cpp/${ARCH}/libunitree_legged_sdk.a
-  RENAME libunitree_legged_sdk.a.${PROJECT_VERSION}
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/unitree
 )
 install(
@@ -122,11 +121,16 @@ install(
     example_torque
     example_walk
     example_joystick
-  EXPORT ${PROJECT_NAME}Config
   RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}/unitree
 )
+set(install_cmake_config_destination_path ${CMAKE_INSTALL_LIBDIR}/cmake/UnitreeLeggedSDK)
+include(CMakePackageConfigHelpers)
+configure_package_config_file(
+  ${CMAKE_CURRENT_SOURCE_DIR}/share/cmake/unitree_legged_sdk/UnitreeLeggedSDKConfig.cmake.in
+  ${CMAKE_CURRENT_BINARY_DIR}/UnitreeLeggedSDKConfig.cmake
+  INSTALL_DESTINATION ${install_cmake_config_destination_path}
+)
 install(
-  EXPORT ${PROJECT_NAME}Config
-  DESTINATION ${CMAKE_INSTALL_DATAROOTDIR}/cmake/${PROJECT_NAME}
-  NAMESPACE ${PROJECT_NAME}::
+  FILES ${CMAKE_CURRENT_BINARY_DIR}/UnitreeLeggedSDKConfig.cmake
+  DESTINATION ${install_cmake_config_destination_path}
 )

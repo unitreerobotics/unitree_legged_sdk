@@ -1,0 +1,48 @@
+
+include(FindPackageHandleStandardArgs)
+include(CMakeFindDependencyMacro)
+
+set(UnitreeLeggedSDK_VERSION @PROJECT_VERSION@)
+
+find_path(UnitreeLeggedSDK_INCLUDE_DIR unitree_legged_sdk/unitree_legged_sdk.h
+  HINTS
+    $ENV{HOME}/.local/include
+    /usr/local/include
+    /usr/include
+)
+find_library(UnitreeLeggedSDK_LIBRARY unitree_legged_sdk
+  HINTS
+    $ENV{HOME}/.local/lib
+    /usr/local/lib
+    /usr/lib
+    $ENV{HOME}/.local/lib/unitree
+    /usr/local/lib/unitree
+    /usr/lib/unitree
+)
+
+if(UnitreeLeggedSDK_INCLUDE_DIR AND UnitreeLeggedSDK_LIBRARY)
+  set(UnitreeLeggedSDK_FOUND TRUE)
+endif()
+
+find_package(Boost REQUIRED)
+
+set(UnitreeLeggedSDK_INCLUDE_DIRS
+  ${UnitreeLeggedSDK_INCLUDE_DIR}
+)
+set(UnitreeLeggedSDK_LIBRARIES
+  ${UnitreeLeggedSDK_LIBRARY}
+)
+
+add_library(UnitreeLeggedSDK::UnitreeLeggedSDK STATIC IMPORTED)
+set_target_properties(UnitreeLeggedSDK::UnitreeLeggedSDK
+  PROPERTIES
+    IMPORTED_LOCATION ${UnitreeLeggedSDK_LIBRARY}
+    INTERFACE_INCLUDE_DIRECTORIES "${UnitreeLeggedSDK_INCLUDE_DIRS}"
+)
+target_link_libraries(UnitreeLeggedSDK::UnitreeLeggedSDK
+  ${Boost_LIBRARIES}
+)
+target_include_directories(UnitreeLeggedSDK::UnitreeLeggedSDK
+  INTERFACE
+    ${Boost_INCLUDE_DIRS}
+)
