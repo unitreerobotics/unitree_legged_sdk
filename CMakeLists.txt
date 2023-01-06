@@ -4,6 +4,8 @@ project(unitree_legged_sdk
   LANGUAGES CXX
 )
 
+option(unitree_legged_sdk_USE_STATIC_LIBRARY "Use statically linked library" FALSE)
+
 find_package(Threads REQUIRED)
 find_package(Boost REQUIRED)
 
@@ -19,10 +21,20 @@ endif()
 list(APPEND unitree_legged_sdk_INCLUDE_DIRS ${Boost_INCLUDE_DIRS})
 list(APPEND unitree_legged_sdk_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
-add_library(unitree_legged_sdk STATIC IMPORTED)
+if(unitree_legged_sdk_USE_STATIC_LIBRARY)
+  set(unitree_legged_sdk_LIBRARY_PATH
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/cpp/${ARCH}/libunitree_legged_sdk.a
+  )
+else()
+  set(unitree_legged_sdk_LIBRARY_PATH
+    ${CMAKE_CURRENT_SOURCE_DIR}/lib/cpp/${ARCH}/libunitree_legged_sdk.so
+  )
+endif()
+
+add_library(unitree_legged_sdk UNKNOWN IMPORTED)
 set_target_properties(unitree_legged_sdk
   PROPERTIES
-    IMPORTED_LOCATION ${CMAKE_CURRENT_SOURCE_DIR}/lib/cpp/${ARCH}/libunitree_legged_sdk.a
+    IMPORTED_LOCATION ${unitree_legged_sdk_LIBRARY_PATH}
     INTERFACE_INCLUDE_DIRECTORIES "${unitree_legged_sdk_INCLUDE_DIRS}"
     VERSION ${PROJECT_VERSION}
 )
@@ -111,7 +123,7 @@ install(
   DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 install(
-  FILES ${CMAKE_CURRENT_SOURCE_DIR}/lib/cpp/${ARCH}/libunitree_legged_sdk.a
+  FILES ${unitree_legged_sdk_LIBRARY_PATH}
   DESTINATION ${CMAKE_INSTALL_LIBDIR}/unitree
 )
 install(
