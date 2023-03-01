@@ -112,21 +112,78 @@ void Custom::RobotControl()
     else if(motiontime >= 18000 && motiontime < 21000)
     {
         cmd.mode = 2;
-        cmd.velocity[1] = -0.3;
+        cmd.velocity[0] = -0.3;
         cmd.yawSpeed = -0.2;
     }
     else if(motiontime >= 21000 && motiontime < 22000)
     {
+        cmd.mode = 2;
+    }
+    else if(motiontime >= 22000 && motiontime < 23000)
+    {
         cmd.mode = 1;
     }
-    else if(motiontime >= 22000 && motiontime < 25000)
+    else if(motiontime >= 23000 && motiontime < 26000)
     {
         cmd.mode = 2;
         cmd.gaitType = 3;
+        cmd.velocity[0] = 0.3;
     }
-    else if(motiontime >= 25000 && motiontime < 26000)
+    else if(motiontime >= 26000 && motiontime < 29000)
+    {
+        cmd.mode = 2;
+        cmd.gaitType = 3;
+        cmd.velocity[0] = -0.3;
+    }
+   else if(motiontime >= 29000 && motiontime < 30000)
+    {
+        cmd.mode = 2;
+    }
+    else if(motiontime >= 30000 && motiontime < 31000)
     {
         cmd.mode = 1;
+    }
+    else if(motiontime >= 31000 && motiontime < 34000)
+    {
+        cmd.mode = 2;
+        cmd.velocity[0] = 0.3;
+        cmd.footRaiseHeight = 0.1;
+    }
+    else if(motiontime >= 34000 && motiontime < 37000)
+    {
+        cmd.mode = 2;
+        cmd.velocity[0] = -0.3;
+        cmd.footRaiseHeight = -0.1;
+    }
+    else if(motiontime >= 37000 && motiontime < 38000)
+    {
+        cmd.mode = 2;
+    }
+    else if(motiontime >= 39000 && motiontime < 40000)
+    {
+        cmd.mode = 1;
+    }
+    else if(motiontime >= 40000 && motiontime < 43000)
+    {
+        cmd.mode = 1;
+        cmd.bodyHeight = 0.1;
+    }
+    else if(motiontime >= 43000 && motiontime < 46000)
+    {
+        cmd.mode = 1;
+        cmd.bodyHeight = -0.1;
+    }
+    else if(motiontime >= 46000 && motiontime < 49000)
+    {
+        cmd.mode = 1;
+    }
+    else if(motiontime >= 49000 && motiontime < 52000)
+    {
+        cmd.mode = 6;
+    }
+    else if(motiontime >= 52000 && motiontime <= 53000)
+    {
+        cmd.mode = 5;
     }
     else 
     {

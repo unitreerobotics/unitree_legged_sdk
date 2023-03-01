@@ -173,30 +173,25 @@ namespace UNITREE_LEGGED_SDK
 		uint16_t bandWidth;
 		uint8_t mode; // 0. idle, default stand  1. force stand (controlled by dBodyHeight + ypr)
 					  // 2. target velocity walking (controlled by velocity + yawSpeed)
-					  // 3. target position walking (controlled by position + ypr[0])
 					  // 4. path mode walking (reserve for future release)
 					  // 5. position stand down.
 					  // 6. position stand up
 					  // 7. damping mode
 					  // 8. recovery stand
-					  // 9. backflip
-					  // 10. jumpYaw
-					  // 11. straightHand
-					  // 12. dance1
-					  // 13. dance2
+
 
 		uint8_t gaitType;			   // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
 		uint8_t speedLevel;			   // 0. default low speed. 1. medium speed 2. high speed. during walking, only respond MODE 3
-		float footRaiseHeight;		   // (unit: m, default: 0.08m), foot up height while walking, delta value
-		float bodyHeight;			   // (unit: m, default: 0.28m), delta value
+		float footRaiseHeight;		   // (unit: m, default: 0.08m), foot up height while walking, delta value, range:[-0.1, 0.15]
+		float bodyHeight;			   // (unit: m, default: 0.28m), delta value, range:[-0.16, 0.16]
 		std::array<float, 2> position; // (unit: m), desired position in inertial frame
-		std::array<float, 3> euler;	   // (unit: rad), roll pitch yaw in stand mode
-		std::array<float, 2> velocity; // (unit: m/s), forwardSpeed, sideSpeed in body frame
-		float yawSpeed;				   // (unit: rad/s), rotateSpeed in body frame
-		std::array<float, 2> dComXy;
-		std::array<float, 2> dstandFootXy;
+		std::array<float, 3> euler;	   // (unit: rad), roll pitch yaw in stand mode, roll range:[-0.3, 0.3], pitch range:[-0.3, 0.3], yaw range:[-0.6, 0.6]
+		std::array<float, 2> velocity; // (unit: m/s), forwardSpeed, sideSpeed in body frame, forwardSpeed range:[-0.8, 1.2], sideSpeed range: [-0.25, 0.25]
+		float yawSpeed;				   // (unit: rad/s), rotateSpeed in body frame, range:[-0.75, 0.75]
+		std::array<float, 2> dComXy;   //reserve
+		std::array<float, 2> dstandFootXy; //reserve
 		BmsCmd bms;
-		std::array<LED, 4> led;
+		std::array<LED, 4> led;        //reserve
 		std::array<uint8_t, 40> wirelessRemote;
 		uint32_t reserve;
 
