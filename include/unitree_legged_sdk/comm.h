@@ -25,7 +25,7 @@ namespace UNITREE_LEGGED_SDK
 
 	typedef struct
 	{
-		uint8_t off; // off 0xA5
+		uint8_t off; // off 0xA5, WARNING: it will turn off the battery
 		std::array<uint8_t, 3> reserve;
 	} BmsCmd;
 
@@ -33,10 +33,10 @@ namespace UNITREE_LEGGED_SDK
 	{
 		uint8_t version_h;
 		uint8_t version_l;
-		uint8_t bms_status;
-		uint8_t SOC;	 // SOC 0-100%
-		int32_t current; // mA
-		uint16_t cycle;
+		uint8_t bms_status;// 1 represents normal, others represents abnormal
+		uint8_t SOC;	 // SOC 0-100%, a int range from 0 ~ 100
+		int32_t current; // mA, negtive means discharge
+		uint16_t cycle; //it represents how many times battery was fully charged and fully discharged 
 		std::array<int8_t, 8> BQ_NTC;	   // x1 degrees centigrade
 		std::array<int8_t, 8> MCU_NTC;	   // x1 degrees centigrade
 		std::array<uint16_t, 30> cell_vol; // cell voltage mV
@@ -58,7 +58,7 @@ namespace UNITREE_LEGGED_SDK
 		std::array<float, 3> gyroscope;		// angular velocity （unit: rad/s)    (raw data)
 		std::array<float, 3> accelerometer; // m/(s2)                             (raw data)
 		std::array<float, 3> rpy;			// euler angle（unit: rad)
-		int8_t temperature;
+		int8_t temperature; // celsius, the IMU's temperature
 	} IMU; // when under accelerated motion, the attitude of the robot calculated by IMU will drift.
 
 	typedef struct
@@ -66,7 +66,7 @@ namespace UNITREE_LEGGED_SDK
 		uint8_t r;
 		uint8_t g;
 		uint8_t b;
-	} LED; // foot led brightness: 0~255
+	} LED; // foot led brightness: 0~255, it's useless in B1
 
 	typedef struct
 	{
@@ -77,7 +77,7 @@ namespace UNITREE_LEGGED_SDK
 		float tauEst; // current estimated output torque (unit: N.m)
 		float q_raw;  // current angle (unit: radian)
 		float dq_raw; // current velocity (unit: radian/second)
-		float ddq_raw;
+		float ddq_raw; //current accleration (unit: radian/second*second)
 		int8_t temperature; // current temperature (temperature conduction is slow that leads to lag)
 		std::array<uint32_t, 2> reserve;
 	} MotorState; // motor feedback
@@ -105,9 +105,9 @@ namespace UNITREE_LEGGED_SDK
 		IMU imu;
 		std::array<MotorState, 20> motorState;
 		BmsState bms;
-		std::array<int16_t, 4> footForce;		// force sensors
-		std::array<int16_t, 4> footForceEst;	// force sensors
-		uint32_t tick;							// reference real-time from motion controller (unit: us)
+		std::array<int16_t, 4> footForce;		// reserve
+		std::array<int16_t, 4> footForceEst;	// reserve
+		uint32_t tick;							// reference real-time from motion controller (unit: ms)
 		std::array<uint8_t, 40> wirelessRemote; // wireless commands
 		uint32_t reserve;
 
@@ -143,17 +143,17 @@ namespace UNITREE_LEGGED_SDK
 		IMU imu;
 		std::array<MotorState, 20> motorState;
 		BmsState bms;
-		std::array<int16_t, 4> footForce;
-		std::array<int16_t, 4> footForceEst;
-		uint8_t mode;
-		float progress;
+		std::array<int16_t, 4> footForce; // foot force in z axis, which is parallel to gravity (unit: N)
+		std::array<int16_t, 4> footForceEst; // foot force in z axis, which is parallel to gravity (unit: N)
+		uint8_t mode; //current mode, more detail in HighCmd comment
+		float progress; // reserve
 		uint8_t gaitType;			   // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
 		float footRaiseHeight;		   // (unit: m, default: 0.08m), foot up height while walking
 		std::array<float, 3> position; // (unit: m), from own odometry in inertial frame, usually drift
 		float bodyHeight;			   // (unit: m, default: 0.28m),
 		std::array<float, 3> velocity; // (unit: m/s), forwardSpeed, sideSpeed, rotateSpeed in body frame
 		float yawSpeed;				   // (unit: rad/s), rotateSpeed in body frame
-		std::array<float, 4> rangeObstacle;
+		std::array<float, 4> rangeObstacle; //reserve
 		std::array<Cartesian, 4> footPosition2Body; // foot position relative to body
 		std::array<Cartesian, 4> footSpeed2Body;	// foot speed relative to body
 		std::array<uint8_t, 40> wirelessRemote;
@@ -177,14 +177,14 @@ namespace UNITREE_LEGGED_SDK
 					  // 5. position stand down.
 					  // 6. position stand up
 					  // 7. damping mode
-					  // 8. recovery stand
+					  // 9. recovery stand
 
 
 		uint8_t gaitType;			   // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
 		uint8_t speedLevel;			   // 0. default low speed. 1. medium speed 2. high speed. during walking, only respond MODE 3
 		float footRaiseHeight;		   // (unit: m, default: 0.08m), foot up height while walking, delta value, range:[-0.1, 0.15]
 		float bodyHeight;			   // (unit: m, default: 0.28m), delta value, range:[-0.16, 0.16]
-		std::array<float, 2> position; // (unit: m), desired position in inertial frame
+		std::array<float, 2> position; // reserve
 		std::array<float, 3> euler;	   // (unit: rad), roll pitch yaw in stand mode, roll range:[-0.3, 0.3], pitch range:[-0.3, 0.3], yaw range:[-0.6, 0.6]
 		std::array<float, 2> velocity; // (unit: m/s), forwardSpeed, sideSpeed in body frame, forwardSpeed range:[-0.8, 1.2], sideSpeed range: [-0.25, 0.25]
 		float yawSpeed;				   // (unit: rad/s), rotateSpeed in body frame, range:[-0.75, 0.75]

@@ -181,9 +181,13 @@ void Custom::RobotControl()
     {
         cmd.mode = 6;
     }
-    else if(motiontime >= 52000 && motiontime <= 53000)
+    else if(motiontime >= 52000 && motiontime < 55000)
     {
         cmd.mode = 5;
+    }
+    else if(motiontime >= 55000 && motiontime < 58000)
+    {
+        cmd.mode = 7;
     }
     else 
     {

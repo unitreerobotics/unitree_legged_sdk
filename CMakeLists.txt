@@ -34,6 +34,9 @@ target_link_libraries(example_torque ${EXTRA_LIBS})
 add_executable(example_walk example/example_walk.cpp)
 target_link_libraries(example_walk ${EXTRA_LIBS})
 
+add_executable(example_recover_stand example/example_recover_stand.cpp)
+target_link_libraries(example_recover_stand ${EXTRA_LIBS})
+
 add_executable(example_joystick example/example_joystick.cpp)
 target_link_libraries(example_joystick ${EXTRA_LIBS})
 
