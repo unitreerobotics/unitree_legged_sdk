@@ -1,14 +1,14 @@
-# v3.8.0
+# v3.8.5
 The unitree_legged_sdk is mainly used for communication between PC and Controller board.
 It also can be used in other PCs with UDP.
 
 ### Notice
 support robot: Go1
 
-not support robot: Laikago, Aliengo, A1. (Check release [v3.3.1](https://github.com/unitreerobotics/unitree_legged_sdk/releases/tag/v3.3.1) for support)
+not support robot: Laikago, B1, Aliengo, A1. (Check release [v3.3.1](https://github.com/unitreerobotics/unitree_legged_sdk/releases/tag/v3.3.1) for support)
 
 ### Dependencies
-* [Unitree](https://www.unitree.com/go1_update)
+* [Unitree](https://www.unitree.com/download)
 ```bash
 Legged_sport    >= v1.36.0
 firmware H0.1.7 >= v0.1.35

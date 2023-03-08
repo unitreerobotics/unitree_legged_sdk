@@ -15,9 +15,11 @@ if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "aarch64.*")
 endif()
 
 link_directories(lib/cpp/${ARCH})
-set(EXTRA_LIBS -pthread libunitree_legged_sdk.so)
+set(EXTRA_LIBS -pthread libunitree_legged_sdk.a)
 
 set(CMAKE_CXX_FLAGS "-O3 -fPIC")
+
+add_subdirectory(python_wrapper)
 
 # one pc one process
 add_executable(example_position example/example_position.cpp)
