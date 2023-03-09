@@ -57,32 +57,32 @@ if __name__ == '__main__':
         elif motiontime >= 3000 and motiontime < 4000:
     
             cmd.mode = 1
-            cmd.euler[0] = 0.3
+            cmd.euler = [0.3, 0.0, 0.0]
     
         elif motiontime >= 4000 and motiontime < 6000:
     
             cmd.mode = 1
-            cmd.euler[0] = -0.3
+            cmd.euler = [-0.3, 0.0, 0.0]
     
         elif motiontime >= 6000 and motiontime < 8000:
     
             cmd.mode = 1
-            cmd.euler[1] = 0.3
+            cmd.euler = [0.0, 0.3, 0.0]
     
         elif motiontime >= 8000 and motiontime < 10000:
             
             cmd.mode = 1
-            cmd.euler[1] = -0.3
+            cmd.euler = [0.0, -0.3, 0.0]
     
         elif motiontime >= 10000 and motiontime < 12000:
             
             cmd.mode = 1
-            cmd.euler[2] = 0.3
+            cmd.euler = [0.0, 0.0, 0.3]
     
         elif motiontime >= 12000 and motiontime < 14000:
             
             cmd.mode = 1
-            cmd.euler[2] = -0.3
+            cmd.euler = [0.0, 0.0, -0.3]
     
         elif motiontime >= 14000 and motiontime < 15000:
     
@@ -91,13 +91,13 @@ if __name__ == '__main__':
         elif motiontime >= 15000 and motiontime < 18000:
             
             cmd.mode = 2
-            cmd.velocity[0] = 0.3
+            cmd.velocity = [0.3, 0, 0]
             cmd.yawSpeed = 0.2
     
         elif motiontime >= 18000 and motiontime < 21000:
 
             cmd.mode = 2
-            cmd.velocity[1] = -0.3
+            cmd.velocity = [0.0, -0.3, 0]
             cmd.yawSpeed = -0.2
     
         elif motiontime >= 21000 and motiontime < 22000:
