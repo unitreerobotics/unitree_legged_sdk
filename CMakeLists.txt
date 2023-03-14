@@ -1,10 +1,6 @@
 cmake_minimum_required(VERSION 2.8.3)
 project(unitree_legged_sdk)
 
-include_directories(include)
-
-add_compile_options(-std=c++14)
-
 # check arch and os
 message("-- CMAKE_SYSTEM_PROCESSOR: ${CMAKE_SYSTEM_PROCESSOR}")
 if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "x86_64.*")
@@ -14,12 +10,17 @@ if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "aarch64.*")
   set(ARCH arm64)
 endif()
 
+include_directories(include)
 link_directories(lib/cpp/${ARCH})
+
+option(PYTHON_BUILD "build python wrapper" OFF)
+if(PYTHON_BUILD)
+  add_subdirectory(python_wrapper)
+endif()
+
 set(EXTRA_LIBS -pthread libunitree_legged_sdk.a)
-
 set(CMAKE_CXX_FLAGS "-O3 -fPIC")
-
-add_subdirectory(python_wrapper)
+set(CMAKE_CXX_STANDARD 14)
 
 # one pc one process
 add_executable(example_position example/example_position.cpp)
