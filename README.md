@@ -32,6 +32,17 @@ If you want to build the python wrapper, then replace the cmake line with:
 cmake -DPYTHON_BUILD=TRUE ..
 ```
 
+If can not find pybind11 headers, then add
+```bash
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pybind11/include)
+```
+at line 14 in python_wrapper/CMakeLists.txt.
+
+If can not find msgpack.hpp, then
+```bash
+sudo apt install libmsgpack*
+```
+
 ### Run
 
 #### Cpp
