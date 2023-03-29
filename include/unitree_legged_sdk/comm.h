@@ -160,7 +160,7 @@ namespace UNITREE_LEGGED_SDK
 		uint32_t reserve;
 
 		uint32_t crc;
-	} HighState; // high level feedback
+	} HighState; // high level feedback, update frequency: 400Hz
 
 	typedef struct
 	{
