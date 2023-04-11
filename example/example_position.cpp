@@ -11,10 +11,12 @@
 using namespace std;
 using namespace UNITREE_LEGGED_SDK;
 
-class Custom {
- public:
+class Custom
+{
+public:
   Custom(uint8_t level) : safe(LeggedType::Go1),
-                          udp(level, 8090, "192.168.123.10", 8007) {
+                          udp(level, 8090, "192.168.123.10", 8007)
+  {
     udp.InitCmdData(cmd);
   }
   void UDPRecv();
@@ -34,28 +36,31 @@ class Custom {
   int rate_count = 0;
   int sin_count = 0;
   int motiontime = 0;
-  float dt = 0.002;  // 0.001~0.01
+  float dt = 0.002; // 0.001~0.01
 };
 
-void Custom::UDPRecv() {
+void Custom::UDPRecv()
+{
   udp.Recv();
 }
 
-void Custom::UDPSend() {
+void Custom::UDPSend()
+{
   udp.Send();
 }
 
-double jointLinearInterpolation(double initPos, double targetPos, double rate) {
+double jointLinearInterpolation(double initPos, double targetPos, double rate)
+{
   double p;
   rate = std::min(std::max(rate, 0.0), 1.0);
   p = initPos * (1 - rate) + targetPos * rate;
   return p;
 }
 
-void Custom::RobotControl() {
+void Custom::RobotControl()
+{
   motiontime++;
   udp.GetRecv(state);
-  // printf("%d  %f\n", motiontime, state.motorState[FR_2].q);
   printf("%d  %f  %f\n", motiontime, state.motorState[FR_1].q, state.motorState[FR_1].dq);
 
   // gravity compensation
@@ -65,19 +70,22 @@ void Custom::RobotControl() {
   cmd.motorCmd[RL_0].tau = +0.65f;
 
   // if( motiontime >= 100){
-  if (motiontime >= 0) {
+  if (motiontime >= 0)
+  {
     // first, get record initial position
     // if( motiontime >= 100 && motiontime < 500){
-    if (motiontime >= 0 && motiontime < 10) {
+    if (motiontime >= 0 && motiontime < 10)
+    {
       qInit[0] = state.motorState[FR_0].q;
       qInit[1] = state.motorState[FR_1].q;
       qInit[2] = state.motorState[FR_2].q;
     }
     // second, move to the origin point of a sine movement with Kp Kd
     // if( motiontime >= 500 && motiontime < 1500){
-    if (motiontime >= 10 && motiontime < 400) {
+    if (motiontime >= 10 && motiontime < 400)
+    {
       rate_count++;
-      double rate = rate_count / 200.0;  // needs count to 200
+      double rate = rate_count / 200.0; // needs count to 200
       Kp[0] = 5.0;
       Kp[1] = 5.0;
       Kp[2] = 5.0;
@@ -92,15 +100,14 @@ void Custom::RobotControl() {
       qDes[2] = jointLinearInterpolation(qInit[2], sin_mid_q[2], rate);
     }
     double sin_joint1, sin_joint2;
-    // last, do sine wave
-    if (motiontime >= 400) {
+    if (motiontime >= 400)
+    {
       sin_count++;
       sin_joint1 = 0.6 * sin(3 * M_PI * sin_count / 1000.0);
       sin_joint2 = -0.6 * sin(1.8 * M_PI * sin_count / 1000.0);
       qDes[0] = sin_mid_q[0];
       qDes[1] = sin_mid_q[1];
       qDes[2] = sin_mid_q[2] + sin_joint2;
-      // qDes[2] = sin_mid_q[2];
     }
 
     cmd.motorCmd[FR_0].q = qDes[0];
@@ -122,20 +129,24 @@ void Custom::RobotControl() {
     cmd.motorCmd[FR_2].tau = 0.0f;
   }
 
-  if (motiontime > 10) {
+  if (motiontime > 10)
+  {
     safe.PositionLimit(cmd);
     int res1 = safe.PowerProtect(cmd, state, 1);
     // You can uncomment it for position protection
     // int res2 = safe.PositionProtect(cmd, state, 10);
-    if (res1 < 0) exit(-1);
+    if (res1 < 0)
+      exit(-1);
   }
 
   udp.SetSend(cmd);
 }
 
-int main(void) {
+int main(void)
+{
   std::cout << "Communication level is set to LOW-level." << std::endl
             << "WARNING: Make sure the robot is hung up." << std::endl
+            << "NOTE: The robot also needs to be set to LOW-level mode, otherwise it will make strange noises and this example will not run successfully! " << std::endl
             << "Press Enter to continue..." << std::endl;
   std::cin.ignore();
 
@@ -149,7 +160,8 @@ int main(void) {
   loop_udpRecv.start();
   loop_control.start();
 
-  while (1) {
+  while (1)
+  {
     sleep(10);
   };
 
