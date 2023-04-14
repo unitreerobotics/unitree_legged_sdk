@@ -148,9 +148,9 @@ namespace UNITREE_LEGGED_SDK
 		uint8_t mode; //current mode, more detail in HighCmd comment
 		float progress; // reserve
 		uint8_t gaitType;			   // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
-		float footRaiseHeight;		   // (unit: m, default: 0.08m), foot up height while walking
+		float footRaiseHeight;		   // (unit: m, default: 0.15m), foot up height while walking
 		std::array<float, 3> position; // (unit: m), from own odometry in inertial frame, usually drift
-		float bodyHeight;			   // (unit: m, default: 0.28m),
+		float bodyHeight;			   // (unit: m, default: 0.58m),
 		std::array<float, 3> velocity; // (unit: m/s), forwardSpeed, sideSpeed, rotateSpeed in body frame
 		float yawSpeed;				   // (unit: rad/s), rotateSpeed in body frame
 		std::array<float, 4> rangeObstacle; //reserve
@@ -182,8 +182,8 @@ namespace UNITREE_LEGGED_SDK
 
 		uint8_t gaitType;			   // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
 		uint8_t speedLevel;			   // 0. default low speed. 1. medium speed 2. high speed. during walking, only respond MODE 3
-		float footRaiseHeight;		   // (unit: m, default: 0.08m), foot up height while walking, delta value, range:[-0.1, 0.15]
-		float bodyHeight;			   // (unit: m, default: 0.28m), delta value, range:[-0.16, 0.16]
+		float footRaiseHeight;		   // (unit: m, default: 0.15m), foot up height while walking, delta value, range:[-0.1, 0.15]
+		float bodyHeight;			   // (unit: m, default: 0.58m), delta value, range:[-0.16, 0.16]
 		std::array<float, 2> position; // reserve
 		std::array<float, 3> euler;	   // (unit: rad), roll pitch yaw in stand mode, roll range:[-0.3, 0.3], pitch range:[-0.3, 0.3], yaw range:[-0.6, 0.6]
 		std::array<float, 2> velocity; // (unit: m/s), forwardSpeed, sideSpeed in body frame, forwardSpeed range:[-0.8, 1.2], sideSpeed range: [-0.25, 0.25]
