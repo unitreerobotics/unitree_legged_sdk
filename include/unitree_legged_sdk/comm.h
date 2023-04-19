@@ -113,13 +113,13 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    std::array<uint8_t, 2> head;
-    uint8_t levelFlag;
-    uint8_t frameReserve;
+    std::array<uint8_t, 2> head; // reserve
+    uint8_t levelFlag;           // reserve
+    uint8_t frameReserve;        // reserve
 
-    std::array<uint32_t, 2> SN;
-    std::array<uint32_t, 2> version;
-    uint16_t bandWidth;
+    std::array<uint32_t, 2> SN;      // reserve
+    std::array<uint32_t, 2> version; // reserve
+    uint16_t bandWidth;              // reserve
     std::array<MotorCmd, 20> motorCmd;
     BmsCmd bms;
     std::array<uint8_t, 40> wirelessRemote; // reserve
