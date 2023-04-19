@@ -25,18 +25,18 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    uint8_t off; // off 0xA5
+    uint8_t off; // set 0xA5 to turn off the battery
     std::array<uint8_t, 3> reserve;
   } BmsCmd;
 
   typedef struct
   {
-    uint8_t version_h;
-    uint8_t version_l;
-    uint8_t bms_status;
-    uint8_t SOC;     // SOC 0-100%
-    int32_t current; // mA
-    uint16_t cycle;
+    uint8_t version_h;                 // reserve
+    uint8_t version_l;                 // reserve
+    uint8_t bms_status;                // reserve
+    uint8_t SOC;                       // SOC 0-100%
+    int32_t current;                   // mA
+    uint16_t cycle;                    // reserve
     std::array<int8_t, 2> BQ_NTC;      // x1 degrees centigrade
     std::array<int8_t, 2> MCU_NTC;     // x1 degrees centigrade
     std::array<uint16_t, 10> cell_vol; // cell voltage mV
@@ -53,10 +53,10 @@ namespace UNITREE_LEGGED_SDK
   {
     std::array<float, 4> quaternion;    // quaternion, normalized, (w,x,y,z)
     std::array<float, 3> gyroscope;     // angular velocity （unit: rad/s)    (raw data)
-    std::array<float, 3> accelerometer; // m/(s2)                             (raw data)
+    std::array<float, 3> accelerometer; // acceleration （unit: m/(s2))       (raw data)
     std::array<float, 3> rpy;           // euler angle（unit: rad)
-    int8_t temperature;
-  } IMU; // when under accelerated motion, the attitude of the robot calculated by IMU will drift.
+    int8_t temperature;                 // the temperature of imu (unit: °C)
+  } IMU;                                // when under accelerated motion, the attitude of the robot calculated by IMU will drift.
 
   typedef struct
   {
@@ -67,14 +67,14 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    uint8_t mode; // motor working mode
-    float q;      // current angle (unit: radian)
-    float dq;     // current velocity (unit: radian/second)
-    float ddq;    // current acc (unit: radian/second*second)
-    float tauEst; // current estimated output torque (unit: N.m)
-    float q_raw;  // current angle (unit: radian)
-    float dq_raw; // current velocity (unit: radian/second)
-    float ddq_raw;
+    uint8_t mode;       // motor working mode
+    float q;            // current angle (unit: radian)
+    float dq;           // current velocity (unit: radian/second)
+    float ddq;          // current acc (unit: radian/second*second)
+    float tauEst;       // current estimated output torque (unit: N.m)
+    float q_raw;        // reserve
+    float dq_raw;       // reserve
+    float ddq_raw;      // reserve
     int8_t temperature; // current temperature (temperature conduction is slow that leads to lag)
     std::array<uint32_t, 2> reserve;
   } MotorState; // motor feedback
@@ -92,20 +92,20 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    std::array<uint8_t, 2> head;
-    uint8_t levelFlag;
-    uint8_t frameReserve;
+    std::array<uint8_t, 2> head; // reserve
+    uint8_t levelFlag;           // reserve
+    uint8_t frameReserve;        // reserve
 
-    std::array<uint32_t, 2> SN;
-    std::array<uint32_t, 2> version;
-    uint16_t bandWidth;
+    std::array<uint32_t, 2> SN;      // reserve
+    std::array<uint32_t, 2> version; // reserve
+    uint16_t bandWidth;              // reserve
     IMU imu;
     std::array<MotorState, 20> motorState;
     BmsState bms;
-    std::array<int16_t, 4> footForce;       // force sensors
-    std::array<int16_t, 4> footForceEst;    // force sensors
+    std::array<int16_t, 4> footForce;       // Data from foot airbag sensor
+    std::array<int16_t, 4> footForceEst;    // reserve，typically zero
     uint32_t tick;                          // reference real-time from motion controller (unit: ms)
-    std::array<uint8_t, 40> wirelessRemote; // wireless commands
+    std::array<uint8_t, 40> wirelessRemote; // Data from Unitree Joystick.
     uint32_t reserve;
 
     uint32_t crc;
@@ -122,7 +122,7 @@ namespace UNITREE_LEGGED_SDK
     uint16_t bandWidth;
     std::array<MotorCmd, 20> motorCmd;
     BmsCmd bms;
-    std::array<uint8_t, 40> wirelessRemote;
+    std::array<uint8_t, 40> wirelessRemote; // reserve
     uint32_t reserve;
 
     uint32_t crc;
@@ -130,30 +130,30 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    std::array<uint8_t, 2> head;
-    uint8_t levelFlag;
-    uint8_t frameReserve;
+    std::array<uint8_t, 2> head; // reserve
+    uint8_t levelFlag;           // reserve
+    uint8_t frameReserve;        // reserve
 
-    std::array<uint32_t, 2> SN;
-    std::array<uint32_t, 2> version;
-    uint16_t bandWidth;
+    std::array<uint32_t, 2> SN;      // reserve
+    std::array<uint32_t, 2> version; // reserve
+    uint16_t bandWidth;              // reserve
     IMU imu;
     std::array<MotorState, 20> motorState;
     BmsState bms;
-    std::array<int16_t, 4> footForce;
-    std::array<int16_t, 4> footForceEst;
-    uint8_t mode;
-    float progress;
-    uint8_t gaitType;              // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
-    float footRaiseHeight;         // (unit: m, default: 0.08m), foot up height while walking
-    std::array<float, 3> position; // (unit: m), from own odometry in inertial frame, usually drift
-    float bodyHeight;              // (unit: m, default: 0.28m),
-    std::array<float, 3> velocity; // (unit: m/s), forwardSpeed, sideSpeed, rotateSpeed in body frame
-    float yawSpeed;                // (unit: rad/s), rotateSpeed in body frame
-    std::array<float, 4> rangeObstacle;
+    std::array<int16_t, 4> footForce;           // Data from foot airbag sensor
+    std::array<int16_t, 4> footForceEst;        // reserve，typically zero
+    uint8_t mode;                               // reserve
+    float progress;                             // reserve
+    uint8_t gaitType;                           // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
+    float footRaiseHeight;                      // (unit: m, default: 0.08m), foot up height while walking
+    std::array<float, 3> position;              // (unit: m), from own odometry in inertial frame, usually drift
+    float bodyHeight;                           // (unit: m, default: 0.28m),
+    std::array<float, 3> velocity;              // (unit: m/s), forwardSpeed, sideSpeed, rotateSpeed in body frame
+    float yawSpeed;                             // (unit: rad/s), rotateSpeed in body frame
+    std::array<float, 4> rangeObstacle;         // Distance to nearest obstacle
     std::array<Cartesian, 4> footPosition2Body; // foot position relative to body
     std::array<Cartesian, 4> footSpeed2Body;    // foot speed relative to body
-    std::array<uint8_t, 40> wirelessRemote;
+    std::array<uint8_t, 40> wirelessRemote;     // Data from Unitree Joystick.
     uint32_t reserve;
 
     uint32_t crc;
@@ -161,25 +161,25 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    std::array<uint8_t, 2> head;
-    uint8_t levelFlag;
-    uint8_t frameReserve;
+    std::array<uint8_t, 2> head; // reserve, no need to set.
+    uint8_t levelFlag;           // reserve. No need to set, only need to set UDP class.
+    uint8_t frameReserve;        // reserve
 
-    std::array<uint32_t, 2> SN;
-    std::array<uint32_t, 2> version;
-    uint16_t bandWidth; // reserve
-    uint8_t mode;       // 0. idle, default stand
-                        // 1. force stand (controlled by dBodyHeight + ypr)
-                        // 2. target velocity walking (controlled by velocity + yawSpeed)
-                        // 3. target position walking (controlled by position + ypr[0]), reserve
-                        // 4. path mode walking (reserve for future release), reserve
-                        // 5. position stand down.
-                        // 6. position stand up
-                        // 7. damping mode
-                        // 8. recovery stand
-                        // 9. backflip, reserve
-                        // 10. jumpYaw, only left direction. Note, to use this mode, you need to set mode = 1 first.
-                        // 11. straightHand. Note, to use this mode, you need to set mode = 1 first.
+    std::array<uint32_t, 2> SN;      // reserve
+    std::array<uint32_t, 2> version; // reserve
+    uint16_t bandWidth;              // reserve
+    uint8_t mode;                    // 0. idle, default stand
+                                     // 1. force stand (controlled by dBodyHeight + ypr)
+                                     // 2. target velocity walking (controlled by velocity + yawSpeed)
+                                     // 3. target position walking (controlled by position + ypr[0]), reserve
+                                     // 4. path mode walking (reserve for future release), reserve
+                                     // 5. position stand down.
+                                     // 6. position stand up
+                                     // 7. damping mode
+                                     // 8. recovery stand
+                                     // 9. backflip, reserve
+                                     // 10. jumpYaw, only left direction. Note, to use this mode, you need to set mode = 1 first.
+                                     // 11. straightHand. Note, to use this mode, you need to set mode = 1 first.
 
     uint8_t gaitType;              // 0.idle
                                    // 1.trot
@@ -204,7 +204,7 @@ namespace UNITREE_LEGGED_SDK
                                    // (range: stair: -0.7~0.7rad/s)
     BmsCmd bms;
     std::array<LED, 4> led;
-    std::array<uint8_t, 40> wirelessRemote;
+    std::array<uint8_t, 40> wirelessRemote; // reserve
     uint32_t reserve;
 
     uint32_t crc;
