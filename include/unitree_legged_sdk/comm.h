@@ -25,18 +25,18 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    uint8_t off; // set 0xA5 to turn off the battery
+    uint8_t off; // set 0xA5 to turn off the battery, please try it under the premise of ensuring safety
     std::array<uint8_t, 3> reserve;
   } BmsCmd;
 
   typedef struct
   {
-    uint8_t version_h;                 // reserve
-    uint8_t version_l;                 // reserve
-    uint8_t bms_status;                // reserve
+    uint8_t version_h;
+    uint8_t version_l;
+    uint8_t bms_status;                // 0x00 : wakeup, 0X01 :  discharge, 0x02 : charge, 0x03 : charger, 0x04 : precharge, 0x05 : charge_err, 0x06 : waterfall_light, 0x07 : self_discharge, 0x08 : junk.
     uint8_t SOC;                       // SOC 0-100%
-    int32_t current;                   // mA
-    uint16_t cycle;                    // reserve
+    int32_t current;                   // （unit: mA)
+    uint16_t cycle;                    // The current number of cycles of the battery
     std::array<int8_t, 2> BQ_NTC;      // x1 degrees centigrade
     std::array<int8_t, 2> MCU_NTC;     // x1 degrees centigrade
     std::array<uint16_t, 10> cell_vol; // cell voltage mV
@@ -63,11 +63,11 @@ namespace UNITREE_LEGGED_SDK
     uint8_t r;
     uint8_t g;
     uint8_t b;
-  } LED; // foot led brightness: 0~255
+  } LED; // reserve
 
   typedef struct
   {
-    uint8_t mode;       // motor working mode
+    uint8_t mode;       // motor working mode. Servo : 0x0A, Damping : 0x00，Overheat ： 0x08.
     float q;            // current angle (unit: radian)
     float dq;           // current velocity (unit: radian/second)
     float ddq;          // current acc (unit: radian/second*second)
@@ -81,7 +81,7 @@ namespace UNITREE_LEGGED_SDK
 
   typedef struct
   {
-    uint8_t mode; // desired working mode
+    uint8_t mode; // desired working mode. Servo : 0x0A, Damping : 0x00.
     float q;      // desired angle (unit: radian)
     float dq;     // desired velocity (unit: radian/second)
     float tau;    // desired output torque (unit: N.m)
@@ -119,7 +119,7 @@ namespace UNITREE_LEGGED_SDK
 
     std::array<uint32_t, 2> SN;      // reserve
     std::array<uint32_t, 2> version; // reserve
-    uint16_t bandWidth;              // reserve
+    uint16_t bandWidth;
     std::array<MotorCmd, 20> motorCmd;
     BmsCmd bms;
     std::array<uint8_t, 40> wirelessRemote; // reserve
@@ -136,13 +136,13 @@ namespace UNITREE_LEGGED_SDK
 
     std::array<uint32_t, 2> SN;      // reserve
     std::array<uint32_t, 2> version; // reserve
-    uint16_t bandWidth;              // reserve
+    uint16_t bandWidth;
     IMU imu;
     std::array<MotorState, 20> motorState;
     BmsState bms;
     std::array<int16_t, 4> footForce;           // Data from foot airbag sensor
     std::array<int16_t, 4> footForceEst;        // reserve，typically zero
-    uint8_t mode;                               // reserve
+    uint8_t mode;                               // The current mode of the robot
     float progress;                             // reserve
     uint8_t gaitType;                           // 0.idle  1.trot  2.trot running  3.climb stair  4.trot obstacle
     float footRaiseHeight;                      // (unit: m, default: 0.08m), foot up height while walking
@@ -203,7 +203,7 @@ namespace UNITREE_LEGGED_SDK
                                    // (range: run  : -4.0~4.0rad/s)
                                    // (range: stair: -0.7~0.7rad/s)
     BmsCmd bms;
-    std::array<LED, 4> led;
+    std::array<LED, 4> led;                 // reserve
     std::array<uint8_t, 40> wirelessRemote; // reserve
     uint32_t reserve;
 
