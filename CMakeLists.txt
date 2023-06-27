@@ -23,7 +23,7 @@ set(CMAKE_CXX_FLAGS "-O3 -fPIC")
 set(CMAKE_CXX_STANDARD 14)
 
 find_package(catkin QUIET)
-if(${catkni_FOUND})
+if(${catkin_FOUND})
   catkin_package(
     INCLUDE_DIRS include
     LIBRARIES ${PROJECT_SOURCE_DIR}/lib/cpp/${ARCH}/libunitree_legged_sdk.a
