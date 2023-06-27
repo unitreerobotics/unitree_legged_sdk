@@ -22,6 +22,12 @@ set(EXTRA_LIBS -pthread libunitree_legged_sdk.a)
 set(CMAKE_CXX_FLAGS "-O3 -fPIC")
 set(CMAKE_CXX_STANDARD 14)
 
+find_package(catkin QUIET)
+catkin_package(
+  INCLUDE_DIRS include
+  LIBRARIES ${PROJECT_SOURCE_DIR}/lib/cpp/${ARCH}/libunitree_legged_sdk.a
+)
+
 # one pc one process
 add_executable(example_position example/example_position.cpp)
 target_link_libraries(example_position ${EXTRA_LIBS})
