@@ -30,6 +30,8 @@ if(${catkin_FOUND})
   )
 endif()
 
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
+
 # one pc one process
 add_executable(example_position example/example_position.cpp)
 target_link_libraries(example_position ${EXTRA_LIBS})
