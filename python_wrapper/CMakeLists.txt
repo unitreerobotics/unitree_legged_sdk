@@ -11,6 +11,7 @@ if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "aarch64.*")
 endif()
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR}/../include)
+include_directories(${CMAKE_CURRENT_SOURCE_DIR}/third-party/pybind11/include)
 link_directories(${CMAKE_CURRENT_SOURCE_DIR}/../lib/cpp/${ARCH})
 file(GLOB_RECURSE sources "cpp/*.cpp")
 
