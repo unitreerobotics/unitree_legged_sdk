@@ -23,6 +23,8 @@ set(CMAKE_CXX_FLAGS "-O3 -fPIC")
 set(CMAKE_C_FLAGS "-O3 -fPIC")
 set(CMAKE_CXX_STANDARD 14)
 
+add_compile_options(-D BOOST_BIND_GLOBAL_PLACEHOLDERS) 
+
 find_package(catkin QUIET)
 if(${catkin_FOUND})
   catkin_package(
@@ -32,8 +34,6 @@ if(${catkin_FOUND})
 endif()
 
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR})
-
-add_compile_options(-D BOOST_BIND_GLOBAL_PLACEHOLDERS) 
 
 # one pc one process
 add_executable(example_position example/example_position.cpp)
