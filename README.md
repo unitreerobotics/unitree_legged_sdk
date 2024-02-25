@@ -5,7 +5,7 @@ It also can be used in other PCs with UDP.
 ### Notice
 support robot: Aliengo
 
-not support robot: Laikago, Aliengo, A1. (Check release [v3.3.1](https://github.com/unitreerobotics/unitree_legged_sdk/releases/tag/v3.3.1) for support)
+not support robot: Laikago, A1. (Check release [v3.3.1](https://github.com/unitreerobotics/unitree_legged_sdk/releases/tag/v3.3.1) for support)
 
 ### Sport Mode
 ```bash
