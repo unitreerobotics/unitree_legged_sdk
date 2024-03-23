@@ -3,3 +3,4 @@ build
 *.o
 .vscode
 .clang-format
+.DS_Store
