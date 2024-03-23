@@ -10,7 +10,7 @@ if("${CMAKE_SYSTEM_PROCESSOR}" MATCHES "aarch64.*")
   set(ARCH arm64)
 endif()
 
-include_directories(include)
+include_directories(include /Users/kyler/Downloads/boost_1_84_0)
 link_directories(lib/cpp/${ARCH})
 
 option(PYTHON_BUILD "build python wrapper" OFF)
@@ -48,10 +48,13 @@ target_link_libraries(example_walk ${EXTRA_LIBS})
 add_executable(example_joystick example/example_joystick.cpp)
 target_link_libraries(example_joystick ${EXTRA_LIBS})
 
+add_executable(joystick_sim kylercode/joystick_sim.cpp)
+target_link_libraries(joystick_sim ${EXTRA_LIBS})
+
 
 # install
 install(TARGETS
-  example_position example_velocity example_torque example_walk example_joystick
+  example_position example_velocity example_torque example_walk example_joystick joystick_sim
   DESTINATION bin/unitree)
 install(DIRECTORY lib/cpp/${ARCH}/
   DESTINATION lib/unitree
